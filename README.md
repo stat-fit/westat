@@ -1,10 +1,11 @@
-<p></p>
+![westat logo](https://github.com/stat-fit/westat/blob/main/static/logo.png)
 
-<img src="static/logo.png" width = "300" height = "500" alt="westat logo" align=center />
-
-<p></p>
+## Author: statfit@hotmail.com
+## Version: 0.1.4
 
 ### Description 
+Westat is a part of pyminer project. 
+
 A package for stat and data miner,calculate woe and iv,and plot woe ,plot iv,calculate ks ,plot ks and auc,plot roc
 
 
@@ -29,14 +30,14 @@ westat.version
 ### 计算 AUC 和 KS
 <p></p>
 
-<img src="static/计算AUC和KS.png" width = "300" height = "500" alt="计算AUC和KS" align=center />
+<img src="static/auc_ks.png" width = "1024" height = "500" alt="auc_ks" align=center />
 
 <p></p>
 
 ### 根据决策树分箱计算WoE和IV
 <p></p>
-
-<img src="static/决策树计算IV.png" width = "300" height = "500" alt="根据决策树分箱计算WoE和IV" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/tree_iv.png" width = "1024" height = "500" alt="tree_iv" align=center />
+<img src="static/view_woe_iv.png" width = "1024" height = "500" alt="view_woe_iv" align=center />
 
 <p></p>
 
@@ -44,41 +45,41 @@ westat.version
 ### 等频分箱计算WoE和IV
 <p></p>
 
-<img src="static/等频分箱计算WoE和IV.png" width = "300" height = "500" alt="等频分箱计算WoE和IV" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/qcut_woe_iv.png" width = "1024" height = "500" alt="qcut_woe_iv" align=center />
 
 <p></p>
 
 ### 根据切分点计算WoE和IV
 <p></p>
 
-<img src="static/根据切分点计算WoE和IV.png" width = "300" height = "500" alt="根据切分点计算WoE和IV" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/cut_woe_iv.png" width = "1024" height = "500" alt="cut_woe_iv" align=center />
 
 <p></p>
 
 ### 计算提升度Lift
 <p></p>
 
-<img src="static/计算提升度Lift.png" width = "300" height = "500" alt="计算提升度Lift" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/get_lift.png" width = "1024" height = "500" alt="get_lift" align=center />
 
 <p></p>
 
 ### 计算稳定性PSI
 <p></p>
 
-<img src="static/计算稳定性PSI.png" width = "300" height = "500" alt="计算稳定性PSI" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/get_psi.png" width = "1024" height = "500" alt="get_psi" align=center />
 
 <p></p>
 
 ### 评分卡开发
 <p></p>
 
-<img src="static/评分卡开发.png" width = "300" height = "500" alt="评分卡开发" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/get_scorecard.png" width = "1024" height = "500" alt="get_scorecard" align=center />
 
 <p></p>
 
 ### 预测模型分数
 <p></p>
 
-<img src="static/预测模型分数.png" width = "300" height = "500" alt="预测模型分数" align=center />
+<img src="https://github.com/stat-fit/westat/blob/main/static/predict_score.png" width = "1024" height = "500" alt="predict_score" align=center />
 
 <p></p>
