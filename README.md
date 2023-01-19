@@ -1,4 +1,4 @@
-![westat logo](https://github.com/stat-fit/westat/blob/main/static/logo.png)
+![westat logo](https://github.com/stat-fit/westat/blob/main/static/logo.jpg)
 
 ## Author: statfit@hotmail.com
 ## Version: 0.1.4
