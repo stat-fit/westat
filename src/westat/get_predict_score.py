@@ -34,7 +34,7 @@ def get_predict_score(data:pd.DataFrame,
     # 数据离散化
     col_result = scorecard['Name'].unique().tolist() + [target]
     col_bins = scorecard[['Name', 'Bins']][scorecard['Type'] == 'continuous'].drop_duplicates('Name')
-    data_discrete = get_data_discrete(df[col_result], data_bins=col_bins, target=target, precision=precision)
+    data_discrete = get_data_discrete(df[col_result], col_bin=col_bins, target=target, precision=precision)
 
     result = pd.DataFrame()
     col_score_list = []

@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from westat.get_col_bins import get_col_bins
+from westat.get_col_bin import get_col_bin
 from westat.logger import logger
 
 
 def get_data_discrete(data: pd.DataFrame,                      
-                      data_bins: pd.DataFrame = pd.DataFrame(),
+                      col_bin: pd.DataFrame = pd.DataFrame(),
                       max_depth=None,
                       max_leaf_nodes: int = 4,
                       min_samples_leaf: float = 0.05,
@@ -18,7 +18,7 @@ def get_data_discrete(data: pd.DataFrame,
     如果数据集中的列不在分箱数据集中，则保留原始数据集中的格式
     Args:
         data: DataFrame,需要进行离散化的目标数据集
-        data_bins: DataFrame,存放列名，分箱列表的数据集
+        col_bin: DataFrame,存放列名，分箱列表的数据集
         max_depth: int,树的深度
         max_leaf_nodes:最大叶子节点数,默认为 4
         min_samples_leaf:float,叶子节点样本数量最小占比,默认为0.05
@@ -31,8 +31,8 @@ def get_data_discrete(data: pd.DataFrame,
     """
     logger.info('根据分箱离散化连续变量进行中。。。')
 
-    if data_bins.empty:
-        bins = get_col_bins(data=data,
+    if col_bin.empty:
+        bins = get_col_bin(data=data,
                             target=target,
                             max_depth=max_depth,
                             max_leaf_nodes=max_leaf_nodes,
@@ -40,7 +40,7 @@ def get_data_discrete(data: pd.DataFrame,
                             missing=missing,
                             precision=precision)
     else:
-        bins = data_bins
+        bins = col_bin
 
     # 不在分箱清单中的列，保持原样
     cols = [i for i in data.columns if i not in [i[0] for i in bins]]

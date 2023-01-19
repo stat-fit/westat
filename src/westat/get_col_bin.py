@@ -4,7 +4,7 @@ from westat.logger import logger
 from westat.get_tree_bins import get_tree_bins
 from westat.get_col_type import get_col_type
 
-def get_col_bins(data: pd.DataFrame,
+def get_col_bin(data: pd.DataFrame,
                  target: str = 'y',
                  max_depth=None,
                  max_leaf_nodes: int = 4,

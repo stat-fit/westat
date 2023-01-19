@@ -1,6 +1,6 @@
 # 版本号
 global version
-version = '0.1.3'
+version = '0.1.4'
 
 def get_version():
     return version
@@ -44,7 +44,7 @@ from westat.get_woe_iv import get_woe_iv, view_woe_iv
 from westat.check_data_target import check_data_target
 # from westat.dataframe_to_table import dataframe_to_table
 from westat.get_col_type import get_col_type
-from westat.get_col_bins import get_col_bins
+from westat.get_col_bin import get_col_bin
 from westat.get_col_psi import get_col_psi,view_col_psi
 from westat.get_modify_bins import get_modify_bins
 from westat.feature_selection import get_feature_by_ivcorr

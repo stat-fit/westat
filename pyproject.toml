@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "westat"
-version = "0.1.3"
+version = "0.1.4"
 authors = [
   { name = 'py2cn', email='aboutlong@qq.com' },
 ]

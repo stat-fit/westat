@@ -7,7 +7,7 @@ from westat.get_col_type import get_col_type
 
 
 def get_feature_by_ivcorr(data: pd.DataFrame,
-                          data_iv: pd.DataFrame = pd.DataFrame(),
+                          col_iv: pd.DataFrame = pd.DataFrame(),
                           min_iv: float = 0.02,
                           max_corr: float = 0.6,
                           keep: list = [],
@@ -19,7 +19,7 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     根据最小IV值 和 最大相关性 筛选特征
     Args:
         data:DataFrame,将要筛选特征的数据集
-        data_iv:DataFrame,列的IV汇总，包含Name,IV 两列的数据集
+        col_iv:DataFrame,列的IV汇总，包含Name,IV 两列的数据集
         min_iv:筛选后允许的最小IV值
         max_corr:筛选后允许的最大相关性
         keep:list,需要保留的特征
@@ -35,11 +35,11 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     df = data.copy()
 
     # 如果没有特征IV入参，则按照默认的决策树方法，批量计算特征IV
-    if data_iv.empty:
-        data_iv = get_data_iv(data, target=target)
+    if col_iv.empty:
+        col_iv = get_data_iv(data, target=target)
 
     # 根据每一列的IV值，计算相关矩阵
-    col_iv_filter = data_iv[data_iv['Name'].isin(df.columns)]
+    col_iv_filter = col_iv[col_iv['Name'].isin(df.columns)]
 
     # 如果列的数据类型不是连续型特征，则赋值为0后计算相关性，否则直接计算相关性
     col_type = get_col_type(data)

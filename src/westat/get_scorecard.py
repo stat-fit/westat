@@ -42,7 +42,7 @@ def get_scorecard(data: pd.DataFrame,
     col_types = get_col_type(data)
 
     # 数据离散化
-    data_discrete = get_data_discrete(data=data, data_bins=col_bins, target=target)
+    data_discrete = get_data_discrete(data=data, col_bin=col_bins, target=target)
 
     # WoE 转换
     data_woe = get_data_woe_transform(data_discrete, target=target)
