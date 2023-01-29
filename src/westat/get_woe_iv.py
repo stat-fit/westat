@@ -10,8 +10,9 @@ def get_woe_iv(data: pd.DataFrame,
                criterion: str = 'tree',
                bins: list = [],
                qcut: int = 0,
-               missing: list = [np.nan, None],
+               missing: list = [np.nan, None, 'nan'],
                target: str = 'y',
+               show_default: bool = False,
                precision: int = 2,
                language: str = 'en') -> pd.DataFrame:
     """
@@ -24,6 +25,7 @@ def get_woe_iv(data: pd.DataFrame,
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
         target: str,目标变量名称，默认为'y'
+        show_default:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
 
@@ -76,9 +78,21 @@ def get_woe_iv(data: pd.DataFrame,
                                  precision=2)
             df[col] = pd.cut(df[col], bins)
 
+    # 离散分箱
+    elif criterion == 'discrete':
+        if len(missing_list) > 0 or len(data[data[col].isnull()]) > 0:
+            df[col].replace(missing, [np.nan] * len(missing), inplace=True)
+            df[col].fillna('missing', inplace=True)
+
     result = df.groupby(col)[target].agg([('#Bad', lambda target: (target == 1).sum()),
                                           ('#Good', lambda target: (target == 0).sum()),
                                           ('#Total', 'count')]).reset_index()
+
+    if show_default:
+        if 'missing' not in list(result[col]):
+            df_default = pd.DataFrame({col: 'missing', '#Bad': 0, '#Good': 0, '#Total': 0}, index=range(1))
+            result = pd.concat([result, df_default])
+
     result['Name'] = col
     result['%Bad'] = result['#Bad'] / result['#Bad'].sum()
     result['%Good'] = result['#Good'] / result['#Good'].sum()
@@ -109,6 +123,7 @@ def get_woe_iv(data: pd.DataFrame,
 
     df = pd.DataFrame({'Bin': bins, 'No.': range(len(bins))})
     result = result.merge(df, how='left', on='Bin')
+    result.replace([np.nan, ''], [0, 0], inplace=True)
 
     # 设置显示格式
     result['No.'] = result['No.'] + 1
@@ -123,13 +138,13 @@ def get_woe_iv(data: pd.DataFrame,
     result.sort_values(by='No.', inplace=True)
     result.reset_index(drop=True, inplace=True)
 
-    result.replace([np.nan, 'nan%'], ['', ''], inplace=True)
     if language == 'cn':
         result = result[
             ['Name', 'No.', 'Bin', '#Total', '#Bad', '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV',
              'Total IV']]
         result.rename(
-            columns={'Name': '名称', 'No.': '分组序号', 'Bin': '分组逻辑', '#Total': '#合计', '#Bad': '#坏', '#Good': '#好',
+            columns={'Name': '名称', 'No.': '分组序号', 'Bin': '分组逻辑', '#Total': '#合计', '#Bad': '#坏',
+                     '#Good': '#好',
                      '%Total': '%合计', '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率', 'Total IV': 'IV合计'},
             inplace=True)
 
@@ -142,15 +157,15 @@ def get_woe_iv(data: pd.DataFrame,
 
 
 def view_woe_iv(data,
-                col:str,
-                criterion:str='tree',
-                bins:list=[],
-                qcut:int=0,
-                missing:list = [np.nan, None],
-                target:str='y',
-                color:str='#007bff',
-                precision:int=2,
-                language:str='en'):
+                col: str,
+                criterion: str = 'tree',
+                bins: list = [],
+                qcut: int = 0,
+                missing: list = [np.nan, None, 'nan'],
+                target: str = 'y',
+                color: str = '#007bff',
+                precision: int = 2,
+                language: str = 'en'):
     """
     计算数据集中指定列的WOE和IV值，并以图形化的形式，对WoE进行展示
     Args:

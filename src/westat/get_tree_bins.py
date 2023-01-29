@@ -2,13 +2,15 @@ import numpy as np
 from numpy import inf
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+
+
 def get_tree_bins(data: pd.DataFrame,
                   col: str,
                   target: str = 'y',
                   max_depth=None,
                   max_leaf_nodes: int = 4,
                   min_samples_leaf: float = 0.05,
-                  missing: list = [np.nan, None],
+                  missing: list = [np.nan, None, 'nan'],
                   precision: int = 2) -> list:
     """
     根据决策树对数据集进行特征分箱，默认最大分为5箱

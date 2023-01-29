@@ -1,6 +1,6 @@
 # 版本号
 global version
-version = '0.1.4'
+version = '0.1.5'
 
 def get_version():
     return version
@@ -31,6 +31,7 @@ from pandas import read_csv, read_excel
 from westat.get_data_partition import get_data_partition
 from westat.get_data_distribution import get_data_distribution
 from westat.get_data_describe import get_data_describe
+from westat.proc_means import proc_means
 
 
 # 数据处理 modify

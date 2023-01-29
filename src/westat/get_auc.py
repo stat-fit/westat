@@ -32,7 +32,7 @@ def get_auc(data: pd.DataFrame,
     result = pd.DataFrame([fpr, tpr, thresholds]).T
     result.columns = ['fpr', 'tpr', 'thresholds']
 
-    auc = round(auc(tpr, tpr), precision)
+    auc = round(auc(fpr, tpr), precision)
     if return_data:
         return auc, result
     else:

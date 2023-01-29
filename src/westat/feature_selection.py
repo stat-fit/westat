@@ -62,8 +62,8 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     result['Corr'] = data_corr.values.reshape(-1, 1)
     result = result[result['Name1'] != result['Name2']]
 
-    col_drop_by_iv = result['Name1'][result['IV1'] <= min_iv].unique()
-    col_drop_by_corr = result['Name1'][(result['Corr'] > max_corr) & (result['IV1-IV2'] < 0)].unique()
+    col_drop_by_iv = result['Name1'][(~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['IV1'] <= min_iv)].unique()
+    col_drop_by_corr = result['Name1'][(~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['Corr'] > max_corr) & (result['IV1-IV2'] < 0)].unique()
 
     col_result = [col for col in result['Name1'].unique() if
                   col not in col_drop_by_iv and col not in col_drop_by_corr and col not in drop]

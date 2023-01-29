@@ -10,7 +10,7 @@ def get_data_iv(data: pd.DataFrame,
                 criterion='tree',
                 bins=[],
                 qcut=0,
-                missing: list = [np.nan, None],
+                missing: list = [np.nan, None, 'nan'],
                 precision=2):
     """
     批量获取变量IV值

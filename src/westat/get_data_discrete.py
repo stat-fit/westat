@@ -10,7 +10,7 @@ def get_data_discrete(data: pd.DataFrame,
                       max_depth=None,
                       max_leaf_nodes: int = 4,
                       min_samples_leaf: float = 0.05,
-                      missing: list = [np.nan, None],
+                      missing: list = [np.nan, None, 'nan'],
                       target: str = 'y',
                       precision: int = 2):
     """

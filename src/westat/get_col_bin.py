@@ -9,7 +9,7 @@ def get_col_bin(data: pd.DataFrame,
                  max_depth=None,
                  max_leaf_nodes: int = 4,
                  min_samples_leaf: float = 0.05,
-                 missing: list = [np.nan, None],
+                 missing: list = [np.nan, None, 'nan'],
                  precision=2) -> pd.DataFrame:
     """
     将数据集中所有列，根据决策树进行分箱

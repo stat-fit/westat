@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "westat"
-version = "0.1.4"
+version = "0.1.5"
 authors = [
-  { name = 'py2cn', email='aboutlong@qq.com' },
+  { name = 'statfit', email='statfit@hotmail.com' },
 ]
 description = "A package for stat and data miner,calculate woe and iv,and plot woe ,plot iv,calculate ks ,plot ks and auc,plot roc"
 readme = "README.md"

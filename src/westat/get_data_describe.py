@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_data_describe(data: pd.DataFrame,
                       data_dict: pd.DataFrame = pd.DataFrame(),
-                      missing: list = [np.nan, None],
+                      missing: list = [np.nan, None, 'nan'],
                       key: list = ['#Sum', '#Min', '#Mean', '#Q1', '#Median', '#Q3', '#Max', '#Std', 'Top1', 'Top2',
                                    'Top3'],
                       precision: int = 2,

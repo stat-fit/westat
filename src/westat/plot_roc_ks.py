@@ -32,7 +32,7 @@ def plot_roc_ks(data: pd.DataFrame,
     data_score_proba = get_predict_score(data, score_card, init_score=init_score, pdo=pdo, target=target,
                                          precision=precision)
     fpr, tpr, thresholds = roc_curve(data['y'], data_score_proba['Proba'], drop_intermediate=False)
-    roc_auc = auc(tpr, tpr)
+    roc_auc = auc(fpr, tpr)
     plt.figure(figsize=(20, 10))
 
     # ROC曲线

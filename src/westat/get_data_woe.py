@@ -10,7 +10,7 @@ def get_data_woe(data: pd.DataFrame,
                  criterion='tree',
                  bins=[],
                  qcut=0,
-                 missing: list = [np.nan, None],
+                 missing: list = [np.nan, None, 'nan'],
                  precision=2):
     """
     批量获取变量WoE值
@@ -36,6 +36,7 @@ def get_data_woe(data: pd.DataFrame,
                                 bins=bins,
                                 qcut=qcut,
                                 missing=missing,
+                                show_default=True,
                                 precision=precision)
         col_iv.append([col, float(col_woe_iv['WoE'].sum())])
     result = pd.DataFrame(col_iv, columns=["Name", "WoE"])

@@ -8,7 +8,7 @@ from westat.get_woe_iv import get_woe_iv
 def get_data_woe_transform(data_discrete,
                            target='y',
                            criterion='discrete',
-                           missing: list = [np.nan, None],
+                           missing: list = [np.nan, None, 'nan'],
                            precision=2):
     """
     根据离散化数据集，进行WoE转换
