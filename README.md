@@ -1,7 +1,7 @@
 ![westat logo](https://github.com/stat-fit/westat/blob/main/static/logo.jpg)
 
 ## Author: statfit@hotmail.com
-## Version: 0.1.5
+## Version: 0.1.6
 
 ### Description 
 Westat is a part of pyminer project. 
