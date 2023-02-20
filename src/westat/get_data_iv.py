@@ -7,7 +7,7 @@ from westat.get_woe_iv import get_woe_iv
 
 def get_data_iv(data: pd.DataFrame,
                 target='y',
-                criterion='tree',
+                method='tree',
                 bins=[],
                 qcut=0,
                 missing: list = [np.nan, None, 'nan'],
@@ -17,7 +17,7 @@ def get_data_iv(data: pd.DataFrame,
     Args:
         data: DataFrame,目标数据集
         target: str,目标变量名称，默认为'y'
-        criterion: str,分箱方法，默认为决策树分箱
+        method: str,分箱方法，默认为决策树分箱
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
@@ -32,7 +32,7 @@ def get_data_iv(data: pd.DataFrame,
         col_woe_iv = get_woe_iv(data=data,
                                 col=col,
                                 target=target,
-                                criterion=criterion,
+                                method=method,
                                 bins=bins,
                                 qcut=qcut,
                                 missing=missing,

@@ -6,11 +6,11 @@ from westat.get_woe_iv import get_woe_iv
 def plot_woe(data: pd.DataFrame,
              col: str,
              target: str = 'y',
-             criterion: str = 'tree',
+             method: str = 'tree',
              bins: list = [],
              qcut: int = 0,
              missing: list = [np.nan, None, 'nan'],
-             color: list = ['#1f77b4', '#d62728'],
+             color: list = ['#1f77b4', '#ff800b', '#d62728', '#333333'],
              marker: str = 'o',
              linewidth=2,
              linestyle='-',
@@ -25,11 +25,11 @@ def plot_woe(data: pd.DataFrame,
         data: DataFrame,目标数据集
         col: str,需要计算WoE和IV的列名
         target: str,目标变量名称，默认为'y'
-        criterion: 分箱方法，默认为决策树分箱
+        method: 分箱方法，默认为决策树分箱
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
-        color:list,条形图颜色名称,默认为['#1f77b4', '#d62728']
+        color:list,条形图颜色名称,默认为['#1f77b4', '#ff800b', '#d62728', '#333333'],
         marker:折线图标记样式，默认为o，即圆点
         linewidth:折线图的线宽，默认为1
         linestyle:折线图中线的类型，默认为 '-'
@@ -46,24 +46,36 @@ def plot_woe(data: pd.DataFrame,
     plt.rcParams['font.sans-serif'] = 'SimHei'  # 设置中文字体
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
-    result = get_woe_iv(data=data, col=col, target=target, criterion=criterion, bins=bins, qcut=qcut, missing=missing,
+    result = get_woe_iv(data=data,
+                        col=col,
+                        target=target,
+                        method=method,
+                        bins=bins,
+                        qcut=qcut,
+                        missing=missing,
                         precision=precision)
     x = [str(x) for x in result['Bin']]
     woe = result['WoE']
-    total = result['#Total']
+    good = result['#Good']
+    bad = result['#Bad']
     total_woe = result['WoE'].sum()
 
     fig = plt.figure(figsize=figsize)
     ax1 = fig.add_subplot(1, 1, 1)
-    ax1.bar(x, total, align='center', color=color[0],
-            label='Total =  {}'.format(round(result['#Total'].sum(), precision)))
+
+    ax1.bar(x, good, bottom=0, align='center', color=color[0],
+            label='Good =  {}'.format(round(result['#Good'].sum(), precision)))
+
+    ax1.bar(x, bad, bottom=good, align='center', color=color[1],
+            label='Bad =  {}'.format(round(result['#Bad'].sum(), precision)))
+
     ax1.set_title(col)
     ax1.set_xlabel(col)
     ax1.set_ylabel('Count')
 
     ax2 = ax1.twinx()
     ax2.plot(x, woe, marker=marker,
-             color=color[1],
+             color=color[2],
              linewidth=linewidth,
              linestyle=linestyle,
              label='WoE = {}'.format(round(total_woe, precision)))
@@ -71,22 +83,19 @@ def plot_woe(data: pd.DataFrame,
     fig.legend(loc=1)
     plt.style.use(style)
 
-    # 设置数字标签
-    for a, b in zip(x, total):
-        if b < 0:
-            p = b - total.max() / 50
-        else:
-            p = b + total.max() / 50
-        ax1.text(a, p, b, ha='center', va='center', fontsize=12, color=color[0])
+    # 设置好坏客户数字标签
+    for a, b, c in zip(x, good, bad):
+        ax1.text(a, b / 2, b, ha='center', va='center', fontsize=12, color=color[3])
+        ax1.text(a, b + c / 2, c, ha='center', va='center', fontsize=12, color=color[3])
 
-    # 设置数字标签
+    # 设置woe数字标签
     for a, b in zip(x, woe):
         if b < 0:
             p = b - woe.max() / 50
         else:
             p = b + woe.max() / 50
 
-        ax2.text(a, p, b, ha='center', va='bottom', fontsize=12, color=color[1])
+        ax2.text(a, p, b, ha='center', va='bottom', fontsize=12, color=color[2])
 
     # 设置绘图显示语言
     if language == 'cn':

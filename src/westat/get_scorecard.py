@@ -48,7 +48,7 @@ def get_scorecard(data: pd.DataFrame,
     data_woe = get_data_woe_transform(data_discrete, target=target)
 
     # 根据手动调整后的分箱，批量计算IV
-    data_iv = get_data_iv(data_discrete, target=target, criterion='discrete')
+    data_iv = get_data_iv(data_discrete, target=target, method='discrete')
 
     # 逻辑回归模型
     y = data_woe[target]

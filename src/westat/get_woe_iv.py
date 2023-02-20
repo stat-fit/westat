@@ -7,12 +7,12 @@ from westat.get_tree_bins import get_tree_bins
 
 def get_woe_iv(data: pd.DataFrame,
                col: str,
-               criterion: str = 'tree',
+               method: str = 'tree',
                bins: list = [],
                qcut: int = 0,
                missing: list = [np.nan, None, 'nan'],
                target: str = 'y',
-               show_default: bool = False,
+               show_missing: bool = False,
                precision: int = 2,
                language: str = 'en') -> pd.DataFrame:
     """
@@ -20,12 +20,12 @@ def get_woe_iv(data: pd.DataFrame,
     Args:
         data: DataFrame,目标数据集
         col: str,需要计算WoE和IV的列名
-        criterion: str,分箱方法，默认为'tree'表示使用决策树分箱,当取值为 'discrete'时，表示数据集已经离散化，直接计算WoE和IV
+        method: str,分箱方法，默认为'tree'表示使用决策树分箱,当取值为 'discrete'时，表示数据集已经离散化，直接计算WoE和IV
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
         target: str,目标变量名称，默认为'y'
-        show_default:bool,是否显示缺失值分组，默认为False
+        show_missing:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
 
@@ -63,7 +63,7 @@ def get_woe_iv(data: pd.DataFrame,
             df[col] = pd.qcut(x=df[col], q=qcut, duplicates='drop')
 
     # 决策树分箱
-    elif criterion == 'tree':
+    elif method == 'tree':
         if len(missing_list) > 0 or len(data[data[col].isnull()]) > 0:
             df[col].replace(missing, [np.nan] * len(missing), inplace=True)
             bins = get_tree_bins(data=data, col=col, target=target, max_depth=None, max_leaf_nodes=4,
@@ -79,7 +79,7 @@ def get_woe_iv(data: pd.DataFrame,
             df[col] = pd.cut(df[col], bins)
 
     # 离散分箱
-    elif criterion == 'discrete':
+    elif method == 'discrete':
         if len(missing_list) > 0 or len(data[data[col].isnull()]) > 0:
             df[col].replace(missing, [np.nan] * len(missing), inplace=True)
             df[col].fillna('missing', inplace=True)
@@ -88,7 +88,7 @@ def get_woe_iv(data: pd.DataFrame,
                                           ('#Good', lambda target: (target == 0).sum()),
                                           ('#Total', 'count')]).reset_index()
 
-    if show_default:
+    if show_missing:
         if 'missing' not in list(result[col]):
             df_default = pd.DataFrame({col: 'missing', '#Bad': 0, '#Good': 0, '#Total': 0}, index=range(1))
             result = pd.concat([result, df_default])
@@ -158,7 +158,7 @@ def get_woe_iv(data: pd.DataFrame,
 
 def view_woe_iv(data,
                 col: str,
-                criterion: str = 'tree',
+                method: str = 'tree',
                 bins: list = [],
                 qcut: int = 0,
                 missing: list = [np.nan, None, 'nan'],
@@ -172,7 +172,7 @@ def view_woe_iv(data,
         data: DataFrame,目标数据集
         col: str,需要计算WoE和IV的列名
         target: str,目标变量名称，默认为'y'
-        criterion: 分箱方法，默认为决策树分箱
+        method: 分箱方法，默认为决策树分箱
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
@@ -185,7 +185,7 @@ def view_woe_iv(data,
     """
     result = get_woe_iv(data=data,
                         col=col,
-                        criterion=criterion,
+                        method=method,
                         bins=bins,
                         qcut=qcut,
                         missing=missing,

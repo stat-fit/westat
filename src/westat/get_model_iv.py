@@ -29,7 +29,12 @@ def get_model_iv(data_discrete: pd.DataFrame,
     result = pd.DataFrame()
     for col in tqdm(data_discrete.columns):
         if col != target and col_iv['IV'][col_iv['Name'] == col].values[0] != 0:
-            df_woe = get_woe_iv(data=data_discrete, col=col, criterion='discrete', target=target,show_default=True, precision=precision)
+            df_woe = get_woe_iv(data=data_discrete,
+                                col=col,
+                                method='discrete',
+                                target=target,
+                                show_missing=True,
+                                precision=precision)
             result = pd.concat([result, df_woe])
 
     # 如果数据字典不为空，则填充字段说明，否则字段说明为空

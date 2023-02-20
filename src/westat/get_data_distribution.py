@@ -6,7 +6,6 @@ def get_data_distribution(data: pd.DataFrame,
                           by=['#Count', 'Name'],
                           ascending=[True, False],
                           total=True,
-                          display=False,
                           precision=2,
                           language='en') -> pd.DataFrame:
     """
@@ -44,37 +43,24 @@ def get_data_distribution(data: pd.DataFrame,
 
     # 标题栏语言设置
     if language == 'cn':
+        df_ratio = df_ratio[['No.', 'Name', 'Value', '#Count', '%Ratio']]
+
         df_ratio.rename(columns={'No.': '序号', 'Name': '名称', 'Value': '值', '#Count': '#数量', '%Ratio': '%占比'},
                         inplace=True)
-        if display:
-            df_ratio = df_ratio[['序号', '名称', '值', '#数量', '%占比']]
-            # 是否显示合计
-            if total:
-                df_ratio.iloc[-1, 1] = '合计'
-            else:
-                df_ratio = df_ratio[df_ratio['名称'] != '']
+
+        # 是否显示合计
+        if total:
+            df_ratio.iloc[-1, 1] = '合计'
         else:
-            df_ratio = df_ratio[['值', '#数量', '%占比']]
-            # 是否显示合计
-            if total:
-                df_ratio.iloc[-1, 0] = '合计'
-            else:
-                df_ratio = df_ratio[df_ratio['名称'] != '']
+            df_ratio = df_ratio[df_ratio['名称'] != '']
 
     else:
-        if display:
-            df_ratio = df_ratio[['No.', 'Name', 'Value', '#Count', '%Ratio']]
-            # 是否显示合计
-            if total:
-                df_ratio.iloc[-1, 1] = 'Total'
-            else:
-                df_ratio = df_ratio[df_ratio['Value'] != '']
+        df_ratio = df_ratio[['No.', 'Name', 'Value', '#Count', '%Ratio']]
+        # 是否显示合计
+        if total:
+            df_ratio.iloc[-1, 1] = 'Total'
         else:
-            df_ratio = df_ratio[['Value', '#Count', '%Ratio']]
-            # 是否显示合计
-            if total:
-                df_ratio.iloc[-1, 0] = 'Total'
-            else:
-                df_ratio = df_ratio[df_ratio['Value'] != '']
+            df_ratio = df_ratio[df_ratio['Value'] != '']
+
 
     return df_ratio
