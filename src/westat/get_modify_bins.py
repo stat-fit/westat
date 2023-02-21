@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from westat.logger import logger
 
+
 def get_modify_bins(col_bins: pd.DataFrame,
                     modify_list: list):
     """

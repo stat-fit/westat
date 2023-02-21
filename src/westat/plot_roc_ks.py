@@ -37,14 +37,14 @@ def plot_roc_ks(data: pd.DataFrame,
 
     # ROC曲线
     plt.subplot(121)
-    plt.title('ROC')
+    plt.title('ROC-AUC')
     plt.plot(fpr, tpr, 'b', label='AUC = ' + str(round(roc_auc, precision)))
-    plt.legend(loc='lower right', fontsize=16)
+    plt.legend(loc='upper left', fontsize=16)
     plt.plot([0, 1], [0, 1], 'r--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.0])
-    plt.xlabel('FPR', fontsize=20)
-    plt.ylabel('TPR', fontsize=20)
+    plt.xlabel('False positive rate', fontsize=20)
+    plt.ylabel('True positive rate', fontsize=20)
 
     # KS曲线
     plt.subplot(122)
@@ -70,7 +70,7 @@ def plot_roc_ks(data: pd.DataFrame,
     plt.plot([a, a], [0, ks], 'o--', color='red')
 
     plt.text(a, ks + 0.02, ks, ha='center', va='bottom', fontsize=12)
-    plt.legend(loc='lower right', fontsize=16)
+    plt.legend(loc='upper left', fontsize=16)
     plt.xlim([0, 10])
     plt.ylim([0.0, 1.0])
     plt.xlabel('% of Population', fontsize=20)

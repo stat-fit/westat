@@ -61,8 +61,9 @@ from westat.get_predict_score import get_predict_score
 # 模型评估 access
 from westat.get_score_distribution import get_score_distribution, view_score_distribution
 from westat.get_auc import get_auc
+from westat.get_auc_by_card import get_auc_by_card
 from westat.get_ks import get_ks
-
+from westat.get_ks_by_card import get_ks_by_card
 
 # 绘图
 from westat.plot_woe import plot_woe
