@@ -29,10 +29,14 @@ def get_data_woe(data: pd.DataFrame,
     logger.info('WoE值计算中。。。')
     col_iv = []
     for col in tqdm([i for i in data.columns if i != target]):
+        if data[col].dtypes in ('int64', 'float64', 'float32'):
+            new_method = method
+        else:
+            new_method = 'discrete'
         col_woe_iv = get_woe_iv(data=data,
                                 col=col,
                                 target=target,
-                                method=method,
+                                method=new_method,
                                 bins=bins,
                                 qcut=qcut,
                                 missing=missing,

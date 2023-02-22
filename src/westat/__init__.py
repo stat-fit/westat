@@ -1,6 +1,6 @@
 # 版本号
 global version
-version = '0.1.8'
+version = '0.1.9'
 
 def get_version():
     return version

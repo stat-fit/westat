@@ -123,7 +123,7 @@ def view_psi(data_actual: pd.DataFrame,
     Returns:
         结果数据集保存数据集对应的PSI
     """
-    result = get_col_psi(data_actual=data_actual,
+    result = get_psi(data_actual=data_actual,
                          data_expected=data_expected,
                          col=col,
                          bins=bins,
