@@ -7,11 +7,11 @@ from westat.get_tree_bins import get_tree_bins
 
 def get_woe_iv(data: pd.DataFrame,
                col: str,
-               method: str = 'tree',
                bins: list = [],
                qcut: int = 0,
                missing: list = [np.nan, None, 'nan'],
                target: str = 'y',
+               method: str = 'tree',
                show_missing: bool = False,
                precision: int = 2,
                language: str = 'en') -> pd.DataFrame:
@@ -20,11 +20,11 @@ def get_woe_iv(data: pd.DataFrame,
     Args:
         data: DataFrame,目标数据集
         col: str,需要计算WoE和IV的列名
-        method: str,分箱方法，默认为'tree'表示使用决策树分箱,当取值为 'discrete'时，表示数据集已经离散化，直接计算WoE和IV
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
         target: str,目标变量名称，默认为'y'
+        method: str,分箱方法，默认为'tree'表示使用决策树分箱,当取值为 'discrete'时，表示数据集已经离散化，直接计算WoE和IV
         show_missing:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
@@ -158,11 +158,11 @@ def get_woe_iv(data: pd.DataFrame,
 
 def view_woe_iv(data,
                 col: str,
-                method: str = 'tree',
                 bins: list = [],
                 qcut: int = 0,
                 missing: list = [np.nan, None, 'nan'],
                 target: str = 'y',
+                method: str = 'tree',
                 color: str = '#007bff',
                 precision: int = 2,
                 language: str = 'en'):
@@ -171,11 +171,11 @@ def view_woe_iv(data,
     Args:
         data: DataFrame,目标数据集
         col: str,需要计算WoE和IV的列名
-        target: str,目标变量名称，默认为'y'
-        method: 分箱方法，默认为决策树分箱
         bins: list,手动指定的分箱列表
         qcut: int,等额分箱的分组数
         missing: list,缺失值列表
+        target: str,目标变量名称，默认为'y'
+        method: 分箱方法，默认为决策树分箱
         color:str,显示颜色
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'

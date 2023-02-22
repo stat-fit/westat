@@ -7,12 +7,13 @@ from westat.logger import logger
 from westat.get_data_discrete import get_data_discrete
 
 
-def get_predict_score(data:pd.DataFrame,
-                      scorecard:pd.DataFrame,
-                      init_score:int=600,
-                      pdo:int=20,
-                      target:str='y',
-                      precision:int=2):
+def get_predict_score(data: pd.DataFrame,
+                      scorecard: pd.DataFrame,
+                      init_score: int = 600,
+                      pdo: int = 20,
+                      odds: float = 0,
+                      target: str = 'y',
+                      precision: int = 2):
     """
     根据评分卡表，对目标数据集进行预测得分和概率
     Args:
@@ -20,6 +21,7 @@ def get_predict_score(data:pd.DataFrame,
         scorecard: pd.Dataframe,评分卡表
         init_score:int,初始模型分,默认为600
         pdo:int,坏件率每上升一倍，增加的分数，默认为20
+        odds:float,坏样本 / 好样本比例
         target:str,目标变量名称，默认为'y'
         precision:int,数据精度，小数点位数，默认为2
 
@@ -53,7 +55,8 @@ def get_predict_score(data:pd.DataFrame,
         result[col_score] = result[col_score].apply(lambda x: round(x, precision))
 
     # 计算模型得分和预测概率
-    odds = data[target].sum() / (data[target].count() - data[target].sum())
+    if odds == 0:
+        odds = data[target].sum() / (data[target].count() - data[target].sum())
 
     b = pdo / np.log(2)
     a = init_score + b * np.log(odds)

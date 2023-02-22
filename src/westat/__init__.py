@@ -1,6 +1,6 @@
 # 版本号
 global version
-version = '0.1.7'
+version = '0.1.8'
 
 def get_version():
     return version
@@ -33,6 +33,8 @@ from westat.get_data_distribution import get_data_distribution
 from westat.get_data_describe import get_data_describe
 from westat.proc_means import proc_means
 
+# 数据检查
+from westat.check_data_target import check_data_target
 
 # 数据处理 modify
 from westat.get_data_discrete import get_data_discrete
@@ -41,17 +43,17 @@ from westat.get_data_woe import get_data_woe
 from westat.get_data_woe_transform import get_data_woe_transform
 from westat.get_tree_bins import get_tree_bins
 from westat.get_woe_iv import get_woe_iv, view_woe_iv
-
-from westat.check_data_target import check_data_target
 # from westat.dataframe_to_table import dataframe_to_table
 from westat.get_col_type import get_col_type
 from westat.get_col_bin import get_col_bin
-from westat.get_col_psi import get_col_psi,view_col_psi
-from westat.get_modify_bins import get_modify_bins
-from westat.feature_selection import get_feature_by_ivcorr
-
+from westat.get_psi import get_psi,view_psi
+from westat.set_modify_bins import set_modify_bins
 from westat.get_model_iv import get_model_iv
 
+# 特征筛选
+from westat.feature_selection import get_feature_by_ivcorr
+from westat.stepwise_lr import stepwise_lr
+from westat.stepwise_forward import stepwise_forward
 
 # 模型开发 model
 from westat.get_scorecard import get_scorecard
@@ -64,6 +66,7 @@ from westat.get_auc import get_auc
 from westat.get_auc_by_card import get_auc_by_card
 from westat.get_ks import get_ks
 from westat.get_ks_by_card import get_ks_by_card
+from westat.get_vif import get_vif
 
 # 绘图
 from westat.plot_woe import plot_woe

@@ -7,6 +7,7 @@ def plot_roc_ks(data: pd.DataFrame,
                 score_card: pd.DataFrame,
                 init_score: int = 600,
                 pdo: int = 20,
+                odds: float = 0,
                 target: str = 'y',
                 return_data: bool = False,
                 precision: int = 2):
@@ -17,6 +18,7 @@ def plot_roc_ks(data: pd.DataFrame,
         score_card:pd.DataFrame，评分卡规则表
         init_score:int,初始模型分,默认为600
         pdo:int,坏件率每上升一倍，增加的分数，默认为20
+        odds:float,坏样本 / 好样本比例
         target:tr,目标变量名称，默认为'y'
         return_data:是否返回结果数据
         precision:int,数据精度，小数点位数，默认为2
@@ -29,8 +31,14 @@ def plot_roc_ks(data: pd.DataFrame,
     plt.rcParams['font.sans-serif'] = 'SimHei'  # 设置中文字体
     plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
-    data_score_proba = get_predict_score(data, score_card, init_score=init_score, pdo=pdo, target=target,
+    data_score_proba = get_predict_score(data,
+                                         score_card,
+                                         init_score=init_score,
+                                         pdo=pdo,
+                                         odds=odds,
+                                         target=target,
                                          precision=precision)
+
     fpr, tpr, thresholds = roc_curve(data['y'], data_score_proba['Proba'], drop_intermediate=False)
     roc_auc = auc(fpr, tpr)
     plt.figure(figsize=(20, 10))

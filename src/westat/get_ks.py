@@ -9,7 +9,7 @@ def get_ks(data: pd.DataFrame,
            return_data: bool = False,
            precision: int = 2):
     """
-    根据评分卡内容，对目标数据集的评分结果计算ks
+    根据评分卡内容，对目标数据集的评分结果计算 KS
     Args:
         data:pd.DataFrame,目标数据集
         col:str，正例的概率估计字段名

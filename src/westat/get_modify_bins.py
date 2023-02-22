@@ -3,7 +3,7 @@ import pandas as pd
 from westat.logger import logger
 
 
-def get_modify_bins(col_bins: pd.DataFrame,
+def set_modify_bins(col_bins: pd.DataFrame,
                     modify_list: list):
     """
     根据手动调整后的分箱，修改自动化生成的分箱结果

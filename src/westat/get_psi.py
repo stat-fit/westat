@@ -5,15 +5,15 @@ import pandas as pd
 from westat.logger import logger
 
 
-def get_col_psi(data_actual: pd.DataFrame,
-                data_expected: str,
-                col: str = 'Score',
-                bins: list = [],
-                qcut=10,
-                missing: list = [np.nan, None, 'nan'],
-                target='y',
-                precision=2,
-                language='en') -> pd.DataFrame:
+def get_psi(data_actual: pd.DataFrame,
+            data_expected: str,
+            col: str = 'Score',
+            bins: list = [],
+            qcut=10,
+            missing: list = [np.nan, None, 'nan'],
+            target='y',
+            precision=2,
+            language='en') -> pd.DataFrame:
     """
     计算数据集PSI
     Args:
@@ -96,16 +96,16 @@ def get_col_psi(data_actual: pd.DataFrame,
     return result
 
 
-def view_col_psi(data_actual: pd.DataFrame,
-                 data_expected: str,
-                 col: str = 'Score',
-                 bins: list = [],
-                 qcut=10,
-                 missing: list = [np.nan, None, 'nan'],
-                 target='y',
-                 color: str = '#007bff',
-                 precision=2,
-                 language='en') -> pd.DataFrame:
+def view_psi(data_actual: pd.DataFrame,
+             data_expected: str,
+             col: str = 'Score',
+             bins: list = [],
+             qcut=10,
+             missing: list = [np.nan, None, 'nan'],
+             target='y',
+             color: str = '#007bff',
+             precision=2,
+             language='en') -> pd.DataFrame:
     """
     计算数据集PSI
     Args:
