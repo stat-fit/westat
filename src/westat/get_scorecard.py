@@ -17,6 +17,7 @@ def get_scorecard(data: pd.DataFrame,
                   pdo: int = 20,
                   target: str = 'y',
                   return_lr: bool = False,
+                  random_state=1234,
                   precision: int = 2,
                   language: str = 'en'):
     """
@@ -36,8 +37,6 @@ def get_scorecard(data: pd.DataFrame,
         评分卡结果表，包含模型全部特征，分箱，截距，参数，得分
     """
 
-    logger.info('开始配置评分卡...')
-
     # 数据类型
     col_types = get_col_type(data)
 
@@ -55,7 +54,7 @@ def get_scorecard(data: pd.DataFrame,
     x = data_woe[[col for col in data.columns if col != target]]
     x = sm.add_constant(x)
 
-    lr = sm.Logit(y, x).fit()
+    lr = sm.Logit(y, x).fit(disp=0)
 
     # 评分卡特征准备
     result = get_model_iv(data_discrete=data_discrete,
@@ -85,26 +84,24 @@ def get_scorecard(data: pd.DataFrame,
     result.reset_index(drop=True, inplace=True)  # 重置索引
     result['Intercept'] = result['Intercept'].apply(lambda x: round(x, precision))
     result['Coef'] = result['Coef'].apply(lambda x: round(x, precision))
-    result['Score'] = result['Score'].apply(lambda x: round(x, precision))
-
-    logger.info('评分卡配置完成...')
+    result['Score'] = result['Score'].apply(lambda x: round(x, 0))
+    result['Base Score'] = init_score
 
     # 语言设置
     if language == 'cn':
         result = result[['No.', 'Name', 'Label', 'Type', 'Bins No.', 'Bin', 'Bins', '#Total', '#Bad',
                          '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV', 'Total IV',
-                         'WoE.', 'Style', 'Intercept', 'Coef', 'Score']]
+                         'WoE.', 'Style', 'Intercept', 'Coef', 'Base Score', 'Score']]
         result.rename(
             columns={'No.': '序号', 'Name': '名称', 'Label': '描述', 'Type': '类型', 'Bins No.': '分箱序号',
                      'Bin': '分箱', 'Bins': '切分点', '#Total': '#合计', '#Bad': '#坏', '#Good': '好',
-                     '%Total': '%合计',
-                     '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率', 'Total IV': 'IV合计', 'Intercept': '截距',
-                     'Coef': '系数',
-                     'Score': '分数', 'Style': '样式'}, inplace=True)
+                     '%Total': '%合计', '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率', 'Total IV': 'IV合计',
+                     'Intercept': '截距', 'Coef': '系数', 'Base Score': '基础分', 'Score': '分数', 'Style': '样式'},
+            inplace=True)
     else:
         result = result[['No.', 'Name', 'Label', 'Type', 'Bins No.', 'Bin', 'Bins', '#Total', '#Bad',
                          '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV', 'Total IV',
-                         'WoE.', 'Style', 'Intercept', 'Coef', 'Score']]
+                         'WoE.', 'Style', 'Intercept', 'Coef', 'Base Score', 'Score']]
 
     if return_lr:
         return result, lr, a, b

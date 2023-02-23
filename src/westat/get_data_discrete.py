@@ -29,7 +29,6 @@ def get_data_discrete(data: pd.DataFrame,
     Returns:
         返回离散化后的数据集
     """
-    logger.info('根据分箱离散化连续变量进行中。。。')
 
     if col_bin.empty:
         bins = get_col_bin(data=data,
@@ -55,5 +54,4 @@ def get_data_discrete(data: pd.DataFrame,
 
     # 缺失值替换
     result.replace(missing, ['missing'] * len(missing), inplace=True)
-    logger.info('根据分箱离散化连续变量完成！')
     return result

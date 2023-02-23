@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import statsmodels.api as sm
+from westat.get_data_iv import get_data_iv
 
 
 def get_criterion(lr, crit, x, y):
@@ -9,16 +9,16 @@ def get_criterion(lr, crit, x, y):
     return aic
 
 
-def stepwise_lr(X: pd.DataFrame(),
-                y: pd.DataFrame(),
+def stepwise_lr(data: pd.DataFrame(),
+                target: str = 'y',
                 sort_features: list = [],
                 crit: str = 'aic',
-                verbose: bool = True):
+                verbose: bool = False):
     """
     批量获取变量WoE值
     Args:
-        X: 特征变量数据，DataFrame或二维数组
-        y: 目标变量数据，Series或一维数组
+        data: 特征变量数据，DataFrame或二维数组
+        target:str,目标变量名称，默认为'y'
         sort_features:根据woe排倒序后的特征列表
         crit:str,筛选特征变量的准则，默认为aic
         verbose: 是否输出详细的调试信息，默认为True
@@ -26,6 +26,15 @@ def stepwise_lr(X: pd.DataFrame(),
     Returns:
         返回特征列表
     """
+    import statsmodels.api as sm
+
+    if len(sort_features) == 0:
+        data_iv = get_data_iv(data, target=target)
+        sort_features = data_iv['Name'].tolist()
+
+    X = data[[col for col in data.columns if col != target]]
+    y = data[target]
+
     # 逐步筛选入模特征
     sort_features_woe = sort_features
 
@@ -44,10 +53,10 @@ def stepwise_lr(X: pd.DataFrame(),
             n = n + 1
             pvals = lr.pvalues.apply(lambda x: round(x, 4))
 
-            print('\nstep {0},current:{1},selected:{3},max_pvalue:{2},pvalue:{1},pvalues:{5}'.format(n,f,selected_f,
-                                                                                                    pvals[-1],
-                                                                                                    max(pvals),
-                                                                                                    pvals.tolist()))
+            print('\nstep {0},current:{1},selected:{3},max_pvalue:{2},pvalue:{1},pvalues:{5}'.format(n, f, selected_f,
+                                                                                                     pvals[-1],
+                                                                                                     max(pvals),
+                                                                                                     pvals.tolist()))
         # 判断新变量是否显著, 如果不显著则跳过
         if lr.pvalues[-1] >= 0.05:
             if verbose:
@@ -57,7 +66,7 @@ def stepwise_lr(X: pd.DataFrame(),
         elif max(lr.pvalues) < 0.05:
             if verbose:
                 print('所有变量都显著')
-            if get_criterion(lr, crit, x, y) < get_criterion(lr0, crit, x0, train_y):
+            if get_criterion(lr, crit, x, y) < get_criterion(lr0, crit, x0, y):
                 selected_f.append(f)
         # 如果新变量显著，且有老变量不显著，则判断比较两者的损失函数值下降水平，保留更优的
         else:

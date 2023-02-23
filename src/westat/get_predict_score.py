@@ -28,7 +28,6 @@ def get_predict_score(data: pd.DataFrame,
     Returns:
         返回预测结果表，包含模型特征原始值，模型特征得分，汇总评分卡得分，预测概率
     """
-    logger.info('预测用户分数中...')
 
     # 复制数据
     df = data.copy()
@@ -65,7 +64,7 @@ def get_predict_score(data: pd.DataFrame,
     result['Proba'] = 1 - 1 / (1 + np.e ** ((result['Score'] - a) / -b))
 
     # 设置显示格式
-    result['Score'] = result['Score'].apply(lambda x: round(x, precision))
+    result['Score'] = result['Score'].apply(lambda x: round(x, 0))
     result['Proba'] = result['Proba'].apply(lambda x: round(x, precision))
 
     return result

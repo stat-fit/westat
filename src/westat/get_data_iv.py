@@ -26,7 +26,6 @@ def get_data_iv(data: pd.DataFrame,
     Returns:
         返回包含特征名称，IV值两列的数据集
     """
-    logger.info('IV值计算中。。。')
     col_iv = []
     for col in tqdm([i for i in data.columns if i != target]):
         if data[col].dtypes in ('int64', 'float64', 'float32'):
@@ -44,5 +43,4 @@ def get_data_iv(data: pd.DataFrame,
         col_iv.append([col, float(col_woe_iv['Total IV'].loc[0])])
     result = pd.DataFrame(col_iv, columns=["Name", "IV"])
     result.sort_values(by='IV', ascending=False, inplace=True)
-    logger.info('IV值计算完成！')
     return result

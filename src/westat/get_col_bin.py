@@ -28,7 +28,6 @@ def get_col_bin(data: pd.DataFrame,
     """
     col_types = get_col_type(data)
     col_continuous_bins = []
-    logger.info('连续变量决策树分箱进行中。。。')
     for i in range(len(col_types)):
         col = col_types.iloc[i, 0]
         col_type = col_types.iloc[i, 1]

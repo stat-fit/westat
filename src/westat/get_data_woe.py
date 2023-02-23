@@ -26,7 +26,6 @@ def get_data_woe(data: pd.DataFrame,
     Returns:
         返回包含特征名称Name，WoE值两列的数据集
     """
-    logger.info('WoE值计算中。。。')
     col_iv = []
     for col in tqdm([i for i in data.columns if i != target]):
         if data[col].dtypes in ('int64', 'float64', 'float32'):
@@ -46,5 +45,4 @@ def get_data_woe(data: pd.DataFrame,
     result = pd.DataFrame(col_iv, columns=["Name", "WoE"])
     result.sort_values(by='WoE', ascending=False, inplace=True)
     result['WoE'] = result['WoE'].apply(lambda x: round(x, precision))
-    logger.info('WoE值计算完成！')
     return result

@@ -30,7 +30,6 @@ def get_psi(data_actual: pd.DataFrame,
     Returns:
         结果数据集保存数据集对应的PSI
     """
-    logger.info('计算特征的PSI...')
     if len(bins) > 0:
         data_actual['Bins Range'] = pd.cut(data_actual[col], bins, duplicates='drop')
         data_expected['Bins Range'] = pd.cut(data_actual[col], bins, duplicates='drop')

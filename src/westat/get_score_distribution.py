@@ -22,7 +22,6 @@ def get_score_distribution(data: pd.DataFrame,
     Returns:
         评分的分布表，包含各分数区间的好坏客户数量，占比，提升度
     """
-    logger.info("开始检查评分卡分布...")
     df = data.copy()
     df[col] = df[col].astype(int)
 

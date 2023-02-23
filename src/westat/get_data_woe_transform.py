@@ -5,7 +5,8 @@ from westat.logger import logger
 from westat.get_woe_iv import get_woe_iv
 
 
-def get_data_woe_transform(data_discrete,
+def get_data_woe_transform(data_discrete: pd.DataFrame(),
+                           data_train_discrete=pd.DataFrame(),
                            target='y',
                            method='discrete',
                            missing: list = [np.nan, None, 'nan'],
@@ -14,6 +15,7 @@ def get_data_woe_transform(data_discrete,
     根据离散化数据集，进行WoE转换
     Args:
         data_discrete: DataFrame,目标数据集
+        data_train_discrete:DataFrame,已经离散化的训练集
         target: str,目标变量名称，默认为'y'
         method: str,分箱方法，默认为'discrete'，表示使用已经离散化的数据计算WoE
         missing: list,缺失值列表
@@ -22,12 +24,17 @@ def get_data_woe_transform(data_discrete,
     Returns:
         返回经过WoE转换后的数据集
     """
-    logger.info('WOE转换中。。。')
     data_woe = pd.DataFrame()
-    for col in tqdm([i for i in data_discrete.columns if i != target]):
-        col_woe = get_woe_iv(data_discrete, col=col, target=target, method=method, missing=missing, precision=precision)
-        s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
-        data_woe = pd.concat([data_woe, s], axis=1)
+
+    if data_train_discrete.empty:
+        for col in tqdm([i for i in data_discrete.columns if i != target]):
+            col_woe = get_woe_iv(data_discrete, col=col, target=target, method=method, missing=missing, precision=precision)
+            s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
+            data_woe = pd.concat([data_woe, s], axis=1)
+    else:
+        for col in tqdm([i for i in data_discrete.columns if i != target]):
+            col_woe = get_woe_iv(data_train_discrete, col=col, target=target, method=method, missing=missing, precision=precision)
+            s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
+            data_woe = pd.concat([data_woe, s], axis=1)
     data_woe[target] = data_discrete[target]
-    logger.info('WOE转换完成！')
     return data_woe

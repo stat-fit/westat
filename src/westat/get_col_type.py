@@ -11,7 +11,6 @@ def get_col_type(data: pd.DataFrame) -> pd.DataFrame:
     Returns:
         返回 DataFrame ,存放列名和列的类型（连续、离散）
     """
-    logger.info('连续和离散变量划分中。。。')
     col_all = data.columns
     col_all_type = data.dtypes
     col_type = []
@@ -22,5 +21,4 @@ def get_col_type(data: pd.DataFrame) -> pd.DataFrame:
             else:
                 col_type.append([col_all[i], 'discrete'])
     df = pd.DataFrame(col_type, columns=['Name', 'Type'])
-    logger.info('连续和离散变量划分完成！')
     return df
