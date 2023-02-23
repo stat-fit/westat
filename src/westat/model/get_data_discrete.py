@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from .get_col_bin import get_col_bin
+from .get_data_bins import get_data_bins
 
 
 def get_data_discrete(data: pd.DataFrame,                      
@@ -30,13 +30,13 @@ def get_data_discrete(data: pd.DataFrame,
     """
 
     if col_bin.empty:
-        bins = get_col_bin(data=data,
-                            target=target,
-                            max_depth=max_depth,
-                            max_leaf_nodes=max_leaf_nodes,
-                            min_samples_leaf=min_samples_leaf,
-                            missing=missing,
-                            precision=precision)
+        bins = get_data_bins(data=data,
+                             target=target,
+                             max_depth=max_depth,
+                             max_leaf_nodes=max_leaf_nodes,
+                             min_samples_leaf=min_samples_leaf,
+                             missing=missing,
+                             precision=precision)
     else:
         bins = col_bin
 

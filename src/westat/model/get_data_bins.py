@@ -4,13 +4,13 @@ from .get_tree_bins import get_tree_bins
 from .get_col_type import get_col_type
 
 
-def get_col_bin(data: pd.DataFrame,
-                target: str = 'y',
-                max_depth=None,
-                max_leaf_nodes: int = 4,
-                min_samples_leaf: float = 0.05,
-                missing: list = [np.nan, None, 'nan'],
-                precision=2) -> pd.DataFrame:
+def get_data_bins(data: pd.DataFrame,
+                  target: str = 'y',
+                  max_depth=None,
+                  max_leaf_nodes: int = 4,
+                  min_samples_leaf: float = 0.05,
+                  missing: list = [np.nan, None, 'nan'],
+                  precision=2) -> pd.DataFrame:
     """
     将数据集中所有列，根据决策树进行分箱
     连续变量的分箱，按小于等于，大于切分，空值单独归位一类，例如:['age', [-inf, 22, 35, 50, 60, inf]]

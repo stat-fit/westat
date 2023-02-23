@@ -8,7 +8,7 @@ from model.get_predict_score import get_predict_score
 def get_auc_by_card(data: pd.DataFrame,
                     score_card: pd.DataFrame,
                     init_score: int = 600,
-                    pdo: int = 20,
+                    pdo: int = 50,
                     target: str = 'y',
                     return_data: bool = False,
                     precision: int = 2):
@@ -18,7 +18,7 @@ def get_auc_by_card(data: pd.DataFrame,
         data:pd.DataFrame,目标数据集
         score_card:pd.DataFrame，评分卡规则表
         init_score:int,初始模型分,默认为600
-        pdo:int,坏件率每上升一倍，增加的分数，默认为20
+        pdo:int,坏件率每上升一倍，增加的分数，默认为50
         target:tr,目标变量名称，默认为'y'
         return_data:是否返回结果数据
         precision:int,数据精度，小数点位数，默认为2

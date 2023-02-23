@@ -9,7 +9,7 @@ from .get_data_discrete import get_data_discrete
 def get_predict_score(data: pd.DataFrame,
                       scorecard: pd.DataFrame,
                       init_score: int = 600,
-                      pdo: int = 20,
+                      pdo: int = 50,
                       odds: float = 0,
                       target: str = 'y',
                       precision: int = 2):
@@ -19,7 +19,7 @@ def get_predict_score(data: pd.DataFrame,
         data: pd.Dataframe,目标数据集
         scorecard: pd.Dataframe,评分卡表
         init_score:int,初始模型分,默认为600
-        pdo:int,坏件率每上升一倍，增加的分数，默认为20
+        pdo:int,坏件率每上升一倍，增加的分数，默认为50
         odds:float,坏样本 / 好样本比例
         target:str,目标变量名称，默认为'y'
         precision:int,数据精度，小数点位数，默认为2

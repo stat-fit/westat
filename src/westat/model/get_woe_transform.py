@@ -4,17 +4,17 @@ from tqdm.notebook import tqdm
 from .get_woe_iv import get_woe_iv
 
 
-def get_data_woe_transform(data_discrete: pd.DataFrame(),
-                           data_train_discrete=pd.DataFrame(),
-                           target='y',
-                           method='discrete',
-                           missing: list = [np.nan, None, 'nan'],
-                           precision=2):
+def get_woe_transform(data_discrete: pd.DataFrame(),
+                      fit_transform=pd.DataFrame(),
+                      target='y',
+                      method='discrete',
+                      missing: list = [np.nan, None, 'nan'],
+                      precision=2):
     """
     根据离散化数据集，进行WoE转换
     Args:
         data_discrete: DataFrame,目标数据集
-        data_train_discrete:DataFrame,已经离散化的训练集
+        fit_transform:DataFrame,已经离散化的训练集,用于根据训练好的transform，转化test/OOT数据
         target: str,目标变量名称，默认为'y'
         method: str,分箱方法，默认为'discrete'，表示使用已经离散化的数据计算WoE
         missing: list,缺失值列表
@@ -25,14 +25,16 @@ def get_data_woe_transform(data_discrete: pd.DataFrame(),
     """
     data_woe = pd.DataFrame()
 
-    if data_train_discrete.empty:
+    if fit_transform.empty:
         for col in tqdm([i for i in data_discrete.columns if i != target]):
-            col_woe = get_woe_iv(data_discrete, col=col, target=target, method=method, missing=missing, precision=precision)
+            col_woe = get_woe_iv(data_discrete, col=col, target=target, method=method, missing=missing,
+                                 precision=precision)
             s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
             data_woe = pd.concat([data_woe, s], axis=1)
     else:
         for col in tqdm([i for i in data_discrete.columns if i != target]):
-            col_woe = get_woe_iv(data_train_discrete, col=col, target=target, method=method, missing=missing, precision=precision)
+            col_woe = get_woe_iv(fit_transform, col=col, target=target, method=method, missing=missing,
+                                 precision=precision)
             s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
             data_woe = pd.concat([data_woe, s], axis=1)
     data_woe[target] = data_discrete[target]

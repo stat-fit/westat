@@ -38,12 +38,12 @@ from .modify import set_update_bins
 
 # 模型开发 model
 from .model import (get_feature_by_ivcorr,
-                    get_col_bin,
                     get_col_type,
+                    get_data_bins,
                     get_data_discrete,
                     get_data_iv,
                     get_data_woe,
-                    get_data_woe_transform,
+                    get_woe_transform,
                     get_model_iv,
                     get_predict_score,
                     get_scorecard,
@@ -125,7 +125,7 @@ __all__ = (
     'view_woe_iv',
     # dataframe_to_table',
     'get_col_type',
-    'get_col_bin',
+    'get_data_bins',
     'set_update_bins',
     'get_model_iv',
 

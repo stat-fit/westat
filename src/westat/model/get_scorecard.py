@@ -4,7 +4,7 @@ import statsmodels.api as sm
 
 from .get_col_type import get_col_type
 from .get_data_discrete import get_data_discrete
-from .get_data_woe_transform import get_data_woe_transform
+from .get_woe_transform import get_data_woe_transform
 from .get_model_iv import get_model_iv
 from .get_data_iv import get_data_iv
 
@@ -13,10 +13,9 @@ def get_scorecard(data: pd.DataFrame,
                   col_bins: pd.DataFrame = pd.DataFrame(),
                   col_dict: pd.DataFrame = pd.DataFrame(),
                   init_score: int = 600,
-                  pdo: int = 20,
+                  pdo: int = 50,
                   target: str = 'y',
                   return_lr: bool = False,
-                  random_state=1234,
                   precision: int = 2,
                   language: str = 'en'):
     """
@@ -26,7 +25,7 @@ def get_scorecard(data: pd.DataFrame,
         col_bins:pd.DataFrame,列的分箱
         col_dict:pd.DataFrame,列的数据字典
         init_score:初始模型分,默认为600
-        pdo: int,坏件率每上升一倍，增加的分数，默认为20
+        pdo: int,坏件率每上升一倍，增加的分数，默认为50,当pdo为负数时，分数越高，风险越高
         target: str,目标变量名称，默认为'y'
         return_lr:bool,是否返回逻辑回归模型的详细内容
         precision: :int,数据精度，小数点位数，默认为2
@@ -75,8 +74,14 @@ def get_scorecard(data: pd.DataFrame,
 
     # 计算评分卡模型的特征得分
     odds = data[target].sum() / (data[target].count() - data[target].sum())
-    b = pdo / np.log(2)
+
+    if pdo > 0:
+        b = pdo / np.log(2)
+    else:
+        b = -pdo / np.log(2)
+
     a = init_score + b * np.log(odds)
+
     result['Score'] = -b * result['WoE'] * result['Coef']
 
     # 设置显示格式
