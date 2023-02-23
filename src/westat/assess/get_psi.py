@@ -2,8 +2,6 @@ import numpy as np
 from numpy import inf
 import pandas as pd
 
-from westat.logger import logger
-
 
 def get_psi(data_actual: pd.DataFrame,
             data_expected: str,
@@ -123,14 +121,14 @@ def view_psi(data_actual: pd.DataFrame,
         结果数据集保存数据集对应的PSI
     """
     result = get_psi(data_actual=data_actual,
-                         data_expected=data_expected,
-                         col=col,
-                         bins=bins,
-                         qcut=qcut,
-                         missing=missing,
-                         target=target,
-                         precision=precision,
-                         language=language)
+                     data_expected=data_expected,
+                     col=col,
+                     bins=bins,
+                     qcut=qcut,
+                     missing=missing,
+                     target=target,
+                     precision=precision,
+                     language=language)
     result['PSI.'] = result['PSI'].replace('', np.nan)
     result['PSI.'] = result['PSI.'].apply(lambda x: float(x))
     result = result.style.bar(subset=['PSI.'], color=color)

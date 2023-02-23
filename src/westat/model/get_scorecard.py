@@ -2,12 +2,11 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-from westat.get_col_type import get_col_type
-from westat.get_data_discrete import get_data_discrete
-from westat.get_data_woe_transform import get_data_woe_transform
-from westat.get_model_iv import get_model_iv
-from westat.get_data_iv import get_data_iv
-from westat.logger import logger
+from .get_col_type import get_col_type
+from .get_data_discrete import get_data_discrete
+from .get_data_woe_transform import get_data_woe_transform
+from .get_model_iv import get_model_iv
+from .get_data_iv import get_data_iv
 
 
 def get_scorecard(data: pd.DataFrame,

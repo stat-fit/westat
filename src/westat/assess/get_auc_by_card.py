@@ -1,15 +1,17 @@
 import numpy as np
 import pandas as pd
-from westat.get_predict_score import get_predict_score
+import sys
+sys.path.append('..')
+from model.get_predict_score import get_predict_score
 
 
 def get_auc_by_card(data: pd.DataFrame,
-            score_card: pd.DataFrame,
-            init_score: int = 600,
-            pdo: int = 20,
-            target: str = 'y',
-            return_data: bool = False,
-            precision: int = 2):
+                    score_card: pd.DataFrame,
+                    init_score: int = 600,
+                    pdo: int = 20,
+                    target: str = 'y',
+                    return_data: bool = False,
+                    precision: int = 2):
     """
     根据评分卡内容，对目标数据集的评分结果计算auc
     Args:

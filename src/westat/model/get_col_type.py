@@ -1,5 +1,4 @@
 import pandas as pd
-from westat.logger import logger
 
 
 def get_col_type(data: pd.DataFrame) -> pd.DataFrame:

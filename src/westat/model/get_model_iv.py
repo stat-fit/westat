@@ -1,6 +1,6 @@
 import pandas as pd
-from westat import tqdm
-from westat.get_woe_iv import get_woe_iv
+from tqdm.notebook import tqdm
+from .get_woe_iv import get_woe_iv
 
 
 def get_model_iv(data_discrete: pd.DataFrame,

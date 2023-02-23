@@ -1,5 +1,7 @@
 import pandas as pd
-def check_data_target(data:pd.DataFrame) -> bool:
+
+
+def check_data_target(data: pd.DataFrame) -> bool:
     """
     检查数据集中是否有列名为"y" 或 "target"的目标变量
     Args:

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from westat.get_predict_score import get_predict_score
+from model.get_predict_score import get_predict_score
 
 
 def plot_roc_ks(data: pd.DataFrame,

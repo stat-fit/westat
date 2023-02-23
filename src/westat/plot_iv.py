@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from westat.get_woe_iv import get_woe_iv
+from model.get_woe_iv import get_woe_iv
 
 
 def plot_iv(data: pd.DataFrame,

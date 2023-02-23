@@ -1,7 +1,5 @@
-import numpy as np
 from numpy import inf
 import pandas as pd
-from westat.logger import logger
 
 
 def get_score_distribution(data: pd.DataFrame,

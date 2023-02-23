@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from westat.logger import logger
-from westat.get_woe_iv import get_woe_iv
+from .get_woe_iv import get_woe_iv
 
 
 def get_data_woe_transform(data_discrete: pd.DataFrame(),

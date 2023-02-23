@@ -2,7 +2,7 @@ import numpy as np
 from numpy import inf
 import pandas as pd
 
-from westat.get_tree_bins import get_tree_bins
+from .get_tree_bins import get_tree_bins
 
 
 def get_woe_iv(data: pd.DataFrame,

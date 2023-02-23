@@ -2,8 +2,7 @@ import numpy as np
 from numpy import inf
 import pandas as pd
 
-from westat.logger import logger
-from westat.get_psi import get_psi
+from .get_psi import get_psi
 
 
 def get_data_psi(data_actual: pd.DataFrame,

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from westat.get_data_iv import get_data_iv
+from .get_data_iv import get_data_iv
 
 
 def get_criterion(lr, crit, x, y):

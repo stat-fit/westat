@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from westat.logger import logger
-
 
 def get_data_partition(data: pd.DataFrame,
                        test_size: float = 0.25,

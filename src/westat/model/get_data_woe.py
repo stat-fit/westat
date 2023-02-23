@@ -1,19 +1,18 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from westat.logger import logger
-from westat.get_woe_iv import get_woe_iv
+from .get_woe_iv import get_woe_iv
 
 
-def get_data_iv(data: pd.DataFrame,
-                target='y',
-                method='tree',
-                bins=[],
-                qcut=0,
-                missing: list = [np.nan, None, 'nan'],
-                precision=2):
+def get_data_woe(data: pd.DataFrame,
+                 target='y',
+                 method='tree',
+                 bins=[],
+                 qcut=0,
+                 missing: list = [np.nan, None, 'nan'],
+                 precision=2):
     """
-    批量获取变量IV值
+    批量获取变量WoE值
     Args:
         data: DataFrame,目标数据集
         target: str,目标变量名称，默认为'y'
@@ -24,7 +23,7 @@ def get_data_iv(data: pd.DataFrame,
         precision: 数据精度，小数点位数，默认为2
 
     Returns:
-        返回包含特征名称，IV值两列的数据集
+        返回包含特征名称Name，WoE值两列的数据集
     """
     col_iv = []
     for col in tqdm([i for i in data.columns if i != target]):
@@ -39,8 +38,10 @@ def get_data_iv(data: pd.DataFrame,
                                 bins=bins,
                                 qcut=qcut,
                                 missing=missing,
+                                show_missing=True,
                                 precision=precision)
-        col_iv.append([col, float(col_woe_iv['Total IV'].loc[0])])
-    result = pd.DataFrame(col_iv, columns=["Name", "IV"])
-    result.sort_values(by='IV', ascending=False, inplace=True)
+        col_iv.append([col, float(col_woe_iv['WoE'].sum())])
+    result = pd.DataFrame(col_iv, columns=["Name", "WoE"])
+    result.sort_values(by='WoE', ascending=False, inplace=True)
+    result['WoE'] = result['WoE'].apply(lambda x: round(x, precision))
     return result

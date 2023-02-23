@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from westat.logger import logger
-from westat.get_data_iv import get_data_iv
-from westat.get_col_type import get_col_type
+
+from .get_data_iv import get_data_iv
+from .get_col_type import get_col_type
 
 
 def get_feature_by_ivcorr(data: pd.DataFrame,
@@ -14,7 +14,7 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
                           drop: list = [],
                           target: str = 'y',
                           return_drop: bool = False,
-                          precision:int = 2):
+                          precision: int = 2):
     """
     根据最小IV值 和 最大相关性 筛选特征
     Args:
@@ -62,8 +62,11 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     result['Corr'] = data_corr.values.reshape(-1, 1)
     result = result[result['Name1'] != result['Name2']]
 
-    col_drop_by_iv = result['Name1'][(~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['IV1'] <= min_iv)].unique()
-    col_drop_by_corr = result['Name1'][(~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['Corr'] > max_corr) & (result['IV1-IV2'] < 0)].unique()
+    col_drop_by_iv = result['Name1'][
+        (~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['IV1'] <= min_iv)].unique()
+    col_drop_by_corr = result['Name1'][
+        (~result['Name1'].isin(keep)) & (~result['Name1'].isin(drop)) & (result['Corr'] > max_corr) & (
+                    result['IV1-IV2'] < 0)].unique()
 
     col_result = [col for col in result['Name1'].unique() if
                   col not in col_drop_by_iv and col not in col_drop_by_corr and col not in drop]
@@ -74,7 +77,6 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     result['IV2'] = result['IV2'].apply(lambda x: round(x, precision))
     result['IV1-IV2'] = result['IV1-IV2'].apply(lambda x: round(x, precision))
     result['Corr'] = result['Corr'].apply(lambda x: round(x, precision))
-
 
     # 是否返回已删除特征和相关矩阵
     if return_drop:

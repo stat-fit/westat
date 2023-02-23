@@ -3,8 +3,7 @@
 import numpy as np
 import pandas as pd
 
-from westat.logger import logger
-from westat.get_data_discrete import get_data_discrete
+from .get_data_discrete import get_data_discrete
 
 
 def get_predict_score(data: pd.DataFrame,

@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from westat.get_col_bin import get_col_bin
-from westat.logger import logger
+from .get_col_bin import get_col_bin
 
 
 def get_data_discrete(data: pd.DataFrame,                      
