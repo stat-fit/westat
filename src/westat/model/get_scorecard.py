@@ -4,7 +4,7 @@ import statsmodels.api as sm
 
 from .get_col_type import get_col_type
 from .get_data_discrete import get_data_discrete
-from .get_woe_transform import get_data_woe_transform
+from .get_woe_transform import get_woe_transform
 from .get_model_iv import get_model_iv
 from .get_data_iv import get_data_iv
 
@@ -42,7 +42,7 @@ def get_scorecard(data: pd.DataFrame,
     data_discrete = get_data_discrete(data=data, col_bin=col_bins, target=target)
 
     # WoE 转换
-    data_woe = get_data_woe_transform(data_discrete, target=target)
+    data_woe = get_woe_transform(data_discrete, target=target)
 
     # 根据手动调整后的分箱，批量计算IV
     data_iv = get_data_iv(data_discrete, target=target, method='discrete')

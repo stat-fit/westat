@@ -119,7 +119,7 @@ __all__ = (
     'get_data_discrete',
     'get_data_iv',
     'get_data_woe',
-    'get_data_woe_transform',
+    'get_woe_transform',
     'get_tree_bins',
     'get_woe_iv',
     'view_woe_iv',
