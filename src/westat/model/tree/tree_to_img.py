@@ -1,3 +1,6 @@
+import os
+
+
 def tree_to_img(file_name, path='', dtype='svg'):
     """
     转换决策树到图片
@@ -27,6 +30,6 @@ def tree_to_img(file_name, path='', dtype='svg'):
         file_path = os.path.splitext(file_name)[0] + '.' + dtype
 
     str_exec = 'dot -T' + dtype + ' ' + file_name + ' -o ' + file_path  # 决策树转图片命令
-    print(str_exec)
+    # print(str_exec)
     result = os.popen(str_exec)
     return result

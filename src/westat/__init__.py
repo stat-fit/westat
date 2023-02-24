@@ -1,7 +1,11 @@
 # -*- coding:utf-8 -*-
 
 # 版本号
-__version__ = '0.1.10.1'
+__title__ = 'westat'
+__version__ = '0.1.11'
+__author__ = 'statfit <statfit@hotmail.com>'
+__license__ = 'GPL, see LICENSE.txt'
+__copyright__ = 'Copyright (c) 2022-2023 statfit'
 
 import sys
 import os
@@ -74,7 +78,7 @@ from westat.plot_iv import plot_iv
 from westat.plot_corr import plot_corr
 from westat.plot_lift import plot_lift
 from westat.plot_roc_ks import plot_roc_ks
-
+from westat.plot_tree import plot_tree
 # 日期处理函数
 from westat.date_diff import date_diff
 
@@ -156,6 +160,7 @@ __all__ = (
     'plot_corr',
     'plot_lift',
     'plot_roc_ks',
+    'plot_tree',
 
     # 决策树文件转换
     'tree_to_img',

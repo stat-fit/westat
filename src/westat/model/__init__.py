@@ -15,4 +15,4 @@ from .stepwise_forward import stepwise_forward
 from .stepwise_lr import stepwise_lr
 
 # 决策树
-from .tree import tree_to_img, tree_to_pdf
+from .tree import tree_to_img, tree_to_pdf, graphviz
