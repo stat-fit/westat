@@ -1,9 +1,10 @@
 from datetime import datetime
 from westat.logger import logger
 
-def date_diff(start_date:str,
-              end_date:str,
-              unit:str='d'):
+
+def date_diff(start_date: str,
+              end_date: str,
+              unit: str = 'd'):
     """
     根据输入的开始日期和结束日期，计算日期差、月份差、年份差，并保留2位小数
     Args:

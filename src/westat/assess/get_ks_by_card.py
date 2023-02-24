@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
-sys.path.append('..')
-from model.get_predict_score import get_predict_score
+
+from ..model.get_predict_score import get_predict_score
 
 
 def get_ks_by_card(data: pd.DataFrame,
