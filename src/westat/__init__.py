@@ -2,7 +2,7 @@
 
 # 版本号
 __title__ = 'westat'
-__version__ = '0.1.13'
+__version__ = '0.1.14'
 __author__ = 'statfit <statfit@hotmail.com>'
 __license__ = 'GPL, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2022-2023 statfit'
@@ -21,7 +21,6 @@ plt.rcParams['font.sans-serif'] = 'SimHei'  # 设置中文字体
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
 # 导入westat功能模块
-# 日志模块
 
 # 自带数据集
 from .dataset import credit_card

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from src.westat.assess.get_score_distribution import get_score_distribution
+from .get_score_distribution import get_score_distribution
 
 
 def plot_lift(data: pd.DataFrame,

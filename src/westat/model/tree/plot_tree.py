@@ -54,8 +54,8 @@ def plot_tree(data: pd.DataFrame,
     clf.fit(x, y)
 
     from westat.utils import current_path
-    file_path = os.path.join(current_path, '../../plugins/win/Graphviz/bin')
-    os.environ['WORK_HOME'] = file_path
+    file_path = os.path.join(current_path, 'plugins', 'win', 'Graphviz', 'bin')
+    os.environ['PATH'] = file_path
 
     if out_file is None:
         dot_data = tree.export_graphviz(clf,
