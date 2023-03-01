@@ -1,5 +1,4 @@
 from datetime import datetime
-from westat.logger import logger
 
 
 def date_diff(start_date: str,
@@ -33,4 +32,4 @@ def date_diff(start_date: str,
         delta = relativedelta(date2, date1)
         return round(delta.years + delta.months / 12 + delta.days / 365, 2)
     else:
-        logger.warning('输入错误， unit：{} 不支持'.format(unit))
+        print('输入错误， unit：{} 不支持'.format(unit))

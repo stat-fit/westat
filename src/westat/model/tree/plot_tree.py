@@ -1,8 +1,10 @@
 import os
 import pandas as pd
 from sklearn import tree
-from .model.tree import graphviz
-from .model.tree import tree_to_img, tree_to_pdf
+
+from . import graphviz
+from .tree_to_img import tree_to_img
+from .tree_to_pdf import tree_to_pdf
 
 
 def plot_tree(data: pd.DataFrame,
@@ -52,7 +54,7 @@ def plot_tree(data: pd.DataFrame,
     clf.fit(x, y)
 
     from westat.utils import current_path
-    file_path = os.path.join(current_path, 'plugins/win/Graphviz/bin')
+    file_path = os.path.join(current_path, '../../plugins/win/Graphviz/bin')
     os.environ['WORK_HOME'] = file_path
 
     if out_file is None:

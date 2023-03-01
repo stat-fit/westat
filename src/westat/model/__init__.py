@@ -13,6 +13,9 @@ from .get_tree_bins import get_tree_bins
 from .get_woe_iv import get_woe_iv, view_woe_iv
 from .stepwise_forward import stepwise_forward
 from .stepwise_lr import stepwise_lr
+from .plot_iv import plot_iv
+from .plot_woe import plot_woe
+from .plot_corr import plot_corr
 
 # 决策树
-from .tree import tree_to_img, tree_to_pdf, graphviz
+from .tree import tree_to_img, tree_to_pdf, graphviz, plot_tree

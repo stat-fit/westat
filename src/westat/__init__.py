@@ -2,7 +2,7 @@
 
 # 版本号
 __title__ = 'westat'
-__version__ = '0.1.12'
+__version__ = '0.1.13'
 __author__ = 'statfit <statfit@hotmail.com>'
 __license__ = 'GPL, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2022-2023 statfit'
@@ -22,7 +22,6 @@ plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 
 # 导入westat功能模块
 # 日志模块
-from westat.logger import logger
 
 # 自带数据集
 from .dataset import credit_card
@@ -58,6 +57,10 @@ from .model import (get_feature_by_ivcorr,
                     stepwise_lr,
                     tree_to_img,
                     tree_to_pdf,
+                    plot_corr,
+                    plot_iv,
+                    plot_woe,
+                    plot_tree,
                     )
 
 # 模型评估 access
@@ -70,17 +73,13 @@ from .assess import (get_score_distribution,
                      get_vif,
                      get_psi,
                      view_psi,
-                     get_data_psi)
+                     get_data_psi,
+                     plot_lift,
+                     plot_roc_ks)
 
-# 绘图
-from westat.plot_woe import plot_woe
-from westat.plot_iv import plot_iv
-from westat.plot_corr import plot_corr
-from westat.plot_lift import plot_lift
-from westat.plot_roc_ks import plot_roc_ks
-from westat.plot_tree import plot_tree
-# 日期处理函数
-from westat.date_diff import date_diff
+
+# 工具
+from .utils import current_path, user_name, host_name, host_ip, date_diff
 
 # 设置函数别名
 get_data_desc = get_data_describe
@@ -99,14 +98,18 @@ __all__ = (
     'plt',
     'tqdm',
     'warnings',
-    'utils',
+
+    # 工具
+    'current_path',
+    'user_name',
+    'host_name',
+    'host_ip',
+    # 日期处理函数
+    'date_diff',
     # 自带数据集
     'credit_card',
 
-    # 日期处理函数
-    'date_diff',
-
-    # 数据获取
+    # 数据获取 sample
     'read_csv',
     'read_excel',
 
@@ -115,7 +118,6 @@ __all__ = (
     'get_data_distribution',
     'get_data_describe',
     'proc_means',
-
     # 数据检查
     'check_data_target',
 
@@ -127,20 +129,26 @@ __all__ = (
     'get_tree_bins',
     'get_woe_iv',
     'view_woe_iv',
-    # dataframe_to_table',
+    # 'dataframe_to_table',
     'get_col_type',
     'get_data_bins',
     'set_update_bins',
     'get_model_iv',
 
+    # 模型开发 model
+    'get_scorecard',
+    'get_predict_score',
+    'plot_woe',
+    'plot_iv',
+    'plot_corr',
+    'plot_tree',
     # 特征筛选
     'get_feature_by_ivcorr',
     'stepwise_lr',
     'stepwise_forward',
-
-    # 模型开发 model
-    'get_scorecard',
-    'get_predict_score',
+    # 决策树文件转换
+    'tree_to_img',
+    'tree_to_pdf',
 
     # 模型评估 access
     'get_score_distribution',
@@ -153,18 +161,9 @@ __all__ = (
     'get_psi',
     'view_psi',
     'get_data_psi',
-
-    # 绘图
-    'plot_woe',
-    'plot_iv',
-    'plot_corr',
     'plot_lift',
     'plot_roc_ks',
-    'plot_tree',
 
-    # 决策树文件转换
-    'tree_to_img',
-    'tree_to_pdf',
     # 其他
     'get_data_desc',
     'get_data_dist',
