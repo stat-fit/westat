@@ -23,10 +23,10 @@ def get_data_distribution(data: pd.DataFrame,
         返回包含数据量、数据占比的数据集
     """
     df_ratio = pd.DataFrame(data=data[col].value_counts())
-    df_ratio['%Ratio'] = df_ratio[col] / len(data)
+    df_ratio['%Ratio'] = df_ratio['count'] / len(data)
     df_ratio['Value'] = df_ratio.index
     df_ratio['Name'] = col
-    df_ratio = df_ratio.rename(columns={col: '#Count'})
+    df_ratio = df_ratio.rename(columns={'count': '#Count'})
     df_ratio = df_ratio[['Name', 'Value', '#Count', '%Ratio']]
 
     # 排序
