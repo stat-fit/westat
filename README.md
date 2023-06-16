@@ -1,86 +1,108 @@
-![westat logo](https://github.com/stat-fit/westat/blob/main/static/logo.jpg)
-
-## Author: statfit@hotmail.com
-
-### Description 
-Westat is a part of pyminer project. 
-
-A package for stat and data miner,calculate woe and iv,and plot woe ,plot iv,calculate ks ,plot ks and auc,plot roc
 
 
-This is a simple stat package. You can see more from 
-[GitHub](https://github.com/stat-fit/westat).
-Or 
-[PyPI](https://pypi.org/project/westat/).
+<h1 align="center" style="text-align:center;">
+  <img src="./static/logo.png" width = "270" height = "90" alt="westat logo" align=center />
+</h1>
 
-[pyminer](http://www.pyminer.com).
+<p align="center"> 金融行业信用评分卡模型开发工具  </p>
+
+<p align="center" >
+<a href="https://gitee.com/westat/westat"><img  src="./static/gitee.png" width = "25" height = "25"></a>
+<a href="https://github.com/stat-fit/westat"><img  src="./static/github.png" width = "25" height = "25"></a>
+<a href="https://pypi.org/project/westat/" ><img src="./static/pypi.png" width = "25" height = "25"></a>
+<br>
+</p>
+
+<h3> 一、描述 </h3>
+
+用于开发信用评分卡模型的python包，包含特征分箱、特征筛选、WOE和IV计算，KS值和AUC计算、模型提升度LIFT、模型稳定性 PSI 计算、决策树绘制、评分卡制作等功能
+<br>另外，westat包含常用的金融计算函数，例如等额本息、等额本金等还款方式的计算。
+
+westat是开源数据分析处理项目<a href="http://pyminer.com/" >pyminer </a> 的一部分，但是也可以被单独使用。
+westat 希望更多朋友能够参与项目，一起维护并提升！
 
 
-#### install
+<h3>二、交流</h3>
+<ul>
+<li>QQ群：945391275 </li>
+<li>邮箱：westat@foxmail.com</li>
+</ul>
+
+<h3> 三、安装 </h3>
 
 ```bash
 pip install westat
 ```
 
-#### version
+<h3> 四、常见操作 </h3>
+<h4>查看版本号</h4>
+
 ```bash
 import westat
 westat.version
 ```
 
-### AUC and KS
+<h4>使用教程</h4>
+
+可参考知乎文章，有问题请留言
+<br>
+<a href="https://zhuanlan.zhihu.com/p/609163039" >https://zhuanlan.zhihu.com/p/609163039 </a>
+<br>
+
+在westat代码仓库中建立了名为 HereWeGo.ipynb 的帮助文档，你可以在 jupyter-notebook 打开学习。
+
+<h3> ks和auc计算 </h3>
 <p></p>
 
-<img src="static/auc_ks.png" width = "1024" height = "500" alt="auc_ks" align=center />
-
-<p></p>
-
-### decision tree cut bins
-<p></p>
-<img src="https://github.com/stat-fit/westat/blob/main/static/tree_iv.png" width = "1024" height = "500" alt="tree_iv" align=center />
-<img src="static/view_woe_iv.png" width = "1024" height = "500" alt="view_woe_iv" align=center />
-
-<p></p>
-
-
-### qcut bins
-<p></p>
-
-<img src="https://github.com/stat-fit/westat/blob/main/static/qcut_woe_iv.png" width = "1024" height = "500" alt="qcut_woe_iv" align=center />
+<img src="./static/auc_ks.png"  alt="auc_ks" align=center />
 
 <p></p>
 
-### custom bins
+<h3> 决策树分箱 </h3>
 <p></p>
-
-<img src="https://github.com/stat-fit/westat/blob/main/static/cut_woe_iv.png" width = "1024" height = "500" alt="cut_woe_iv" align=center />
-
-<p></p>
-
-### Lift
-<p></p>
-
-<img src="https://github.com/stat-fit/westat/blob/main/static/get_lift.png" width = "1024" height = "500" alt="get_lift" align=center />
+<img src="./static/tree_iv.png"  alt="tree_iv" align=center />
+<img src="static/view_woe_iv.png"  alt="view_woe_iv" align=center />
 
 <p></p>
 
-### PSI
-<p></p>
-
-<img src="https://github.com/stat-fit/westat/blob/main/static/get_psi.png" width = "1024" height = "500" alt="get_psi" align=center />
+<h3> 等频分箱 </h3>
 
 <p></p>
 
-### scorecard
-<p></p>
-
-<img src="https://github.com/stat-fit/westat/blob/main/static/get_scorecard.png" width = "1024" height = "500" alt="get_scorecard" align=center />
+<img src="./static/qcut_woe_iv.png"  alt="qcut_woe_iv" align=center />
 
 <p></p>
+<h3> 个性化分箱 </h3>
 
-### predict
 <p></p>
 
-<img src="https://github.com/stat-fit/westat/blob/main/static/predict_score.png" width = "1024" height = "500" alt="predict_score" align=center />
+<img src="./static/cut_woe_iv.png"  alt="cut_woe_iv" align=center />
+
+<p></p>
+<h3> 模型提升度 Lift 计算 </h3>
+
+<p></p>
+
+<img src="./static/get_lift.png"  alt="get_lift" align=center />
+
+<p></p>
+<h3> 模型稳定度 PSI计算 </h3>
+<p></p>
+
+<img src="./static/get_psi.png"  alt="get_psi" align=center />
+
+<p></p>
+
+<h3> 评分卡制作 </h3>
+<p></p>
+
+<img src="./static/get_scorecard.png"  alt="get_scorecard" align=center />
+
+<p></p>
+
+<h3> 评分卡分数预测 </h3>
+<p></p>
+
+<img src="./static/predict_score.png"  alt="predict_score" align=center />
 
 <p></p>

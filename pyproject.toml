@@ -4,15 +4,23 @@ build-backend = "hatchling.build"
 
 [project]
 name = "westat"
-version = "0.1.15"
+version = "0.2.1"
 authors = [
-  { name = 'statfit', email='statfit@hotmail.com' },
+  { name = 'westat', email='westat@foxmail.com' },
 ]
 description = "A package for stat and data miner,calculate woe and iv,and plot woe ,plot iv,calculate ks ,plot ks and auc,plot roc"
 readme = "README.md"
-requires-python = ">=3.8"
-
-keywords = ["stat","woe","iv","roc","ks","auc","psi"]
+requires-python = ">=3.7"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "matplotlib",
+    "scikit-learn",
+    "statsmodels",
+    "tqdm",
+]
+keywords = ["scorecard","woe","iv","roc","ks","auc","psi","lift"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -26,4 +34,19 @@ classifiers = [
 [project.urls]
 homepage = 'http://www.pyminer.com'
 documentation = 'https://gitee.com/py2cn/pyminer/wikis'
-repository = 'https://gitee.com/py2cn/pyminer'
+repository = 'https://gitee.com/westat/westat'
+
+
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/.idea",
+    "/.github",
+    "/.ipynb_checkpoints",
+    "/__pycache__",
+    "/docs",
+    "/dist",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["westat"]
