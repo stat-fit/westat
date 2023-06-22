@@ -20,6 +20,9 @@ dependencies = [
     "statsmodels",
     "tqdm",
     "seaborn",
+    "sphinx-rtd-theme",
+    "myst_parser",
+    "Sphinx",
 ]
 keywords = ["scorecard","woe","iv","roc","ks","auc","psi","lift"]
 classifiers = [
