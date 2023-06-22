@@ -7,9 +7,9 @@
 <p align="center"> 金融行业信用评分卡模型开发工具  </p>
 
 <p align="center" >
-<a href="https://gitee.com/westat/westat"><img  src="./static/gitee.png" width = "25" height = "25"></a>
-<a href="https://github.com/stat-fit/westat"><img  src="./static/github.png" width = "25" height = "25"></a>
-<a href="https://pypi.org/project/westat/" ><img src="./static/pypi.png" width = "25" height = "25"></a>
+<a href="https://gitee.com/westat/westat"><img  src="https://gitee.com/westat/westat/raw/master/static/gitee.png" width = "25" height = "25"></a>
+<a href="https://github.com/stat-fit/westat"><img  src="https://gitee.com/westat/westat/raw/master/static/github.png" width = "25" height = "25"></a>
+<a href="https://pypi.org/project/westat/" ><img src="https://gitee.com/westat/westat/raw/master/static/pypi.png" width = "25" height = "25"></a>
 <br>
 </p>
 
@@ -44,24 +44,18 @@ westat.version
 
 <h4>使用教程</h4>
 
-可参考知乎文章，有问题请留言
-<br>
-<a href="https://zhuanlan.zhihu.com/p/609163039" >https://zhuanlan.zhihu.com/p/609163039 </a>
+
+请查看帮助文档 <a href="https://westat.readthedocs.io" >https://westat.readthedocs.io </a>
 <br>
 
 在westat代码仓库中建立了名为 HereWeGo.ipynb 的帮助文档，你可以在 jupyter-notebook 打开学习。
 
-<h3> ks和auc计算 </h3>
-<p></p>
 
-<img src="./static/auc_ks.png"  alt="auc_ks" align=center />
-
-<p></p>
 
 <h3> 决策树分箱 </h3>
 <p></p>
-<img src="./static/tree_iv.png"  alt="tree_iv" align=center />
-<img src="static/view_woe_iv.png"  alt="view_woe_iv" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/tree_iv.png"  alt="tree_iv" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/view_woe_iv.png"  alt="view_woe_iv" align=center />
 
 <p></p>
 
@@ -69,40 +63,52 @@ westat.version
 
 <p></p>
 
-<img src="./static/qcut_woe_iv.png"  alt="qcut_woe_iv" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/qcut_woe_iv.png"  alt="qcut_woe_iv" align=center />
 
 <p></p>
 <h3> 个性化分箱 </h3>
 
 <p></p>
 
-<img src="./static/cut_woe_iv.png"  alt="cut_woe_iv" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/cut_woe_iv.png"  alt="cut_woe_iv" align=center />
+
+<h3> ks和auc计算 </h3>
+<p></p>
+
+<img src="https://gitee.com/westat/westat/raw/master/static/auc_ks.png"  alt="auc_ks" align=center />
+
+<p></p>
+
+<h3> ks绘图 </h3>
+<p></p>
+
+<img src="https://gitee.com/westat/westat/raw/master/static/plot_ks.png"  alt="plot_ks" align=center />
 
 <p></p>
 <h3> 模型提升度 Lift 计算 </h3>
 
 <p></p>
 
-<img src="./static/get_lift.png"  alt="get_lift" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/get_lift.png"  alt="get_lift" align=center />
 
 <p></p>
 <h3> 模型稳定度 PSI计算 </h3>
 <p></p>
 
-<img src="./static/get_psi.png"  alt="get_psi" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/get_psi.png"  alt="get_psi" align=center />
 
 <p></p>
 
 <h3> 评分卡制作 </h3>
 <p></p>
 
-<img src="./static/get_scorecard.png"  alt="get_scorecard" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/get_scorecard.png"  alt="get_scorecard" align=center />
 
 <p></p>
 
 <h3> 评分卡分数预测 </h3>
 <p></p>
 
-<img src="./static/predict_score.png"  alt="predict_score" align=center />
+<img src="https://gitee.com/westat/westat/raw/master/static/predict_score.png"  alt="predict_score" align=center />
 
 <p></p>

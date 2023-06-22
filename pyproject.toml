@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "westat"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
   { name = 'westat', email='westat@foxmail.com' },
 ]
@@ -20,6 +20,7 @@ dependencies = [
     "statsmodels",
     "tqdm",
     "seaborn",
+    "openpyxl",
 ]
 keywords = ["scorecard","woe","iv","roc","ks","auc","psi","lift"]
 classifiers = [

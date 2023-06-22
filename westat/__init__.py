@@ -2,7 +2,7 @@
 
 # 版本号
 __title__ = 'westat'
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 __author__ = 'westat <westat@foxmail.com>'
 __license__ = 'GPL, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2022-2023 statfit'
