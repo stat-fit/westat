@@ -19,6 +19,7 @@ dependencies = [
     "scikit-learn",
     "statsmodels",
     "tqdm",
+    "seaborn",
 ]
 keywords = ["scorecard","woe","iv","roc","ks","auc","psi","lift"]
 classifiers = [

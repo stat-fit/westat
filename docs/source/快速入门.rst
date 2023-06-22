@@ -1,38 +1,17 @@
 快速入门
 =====
 
-.. _installation:
+.. _tutorials:
 
-安装
+一、方法论
 ------------
 
-在使用 westat 前，需要先使用 pip 进行安装:
-
-.. code-block:: console
-
-   $ pip install westat
+westat的整体方法论和代码框架基于 ``SEMMA`` ，它是由SAS研究院开发的一款非常著名的数据挖掘与分析方法， ``SEMMA`` 分别是抽样(Sample)、探索(Explore)、修订(Modify)、建模(Model)和评估(Assess)的英文首字母缩写。
 
 
-Creating recipes
+二、代码示例
 ----------------
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
-
-.. autofunction:: lumache.get_random_ingredients
+在westat的源码仓库和安装后 ``examples`` 文件夹内，我们增加了一个名为 ``HereWeGo.ipynb`` 的代码示例文件，该文件是 ``jupyter-notebook`` 格式的Python脚本，你可以将该文件复制到jupyter的工作目录进行查看。
 
 
-
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-
-
->>>from docs.source import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']

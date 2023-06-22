@@ -14,9 +14,9 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 
 project = 'westat'
-copyright = '2023, lixianglong'
-author = 'lixianglong'
-release = '0.1.19'
+copyright = '2023, westat team'
+author = 'westat team'
+release = '0.2.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -37,8 +37,10 @@ language = 'zh_CN'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "furo"  # pydata_sphinx_theme press
+html_theme = "sphinx_rtd_theme"  # pydata_sphinx_theme press
 html_static_path = ['_static']
+
+html_favicon = '_images/logo.png'
 
 # EPUB options
 epub_show_urls = 'footnote'

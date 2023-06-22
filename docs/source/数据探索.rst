@@ -1,0 +1,38 @@
+数据探索
+=====
+
+.. _installation:
+
+安装
+------------
+
+在使用 westat 前，需要先使用 pip 进行安装:
+
+.. code-block:: console
+
+   $ pip install westat
+
+
+Creating recipes
+----------------
+
+To retrieve a list of random ingredients,
+you can use the ``lumache.get_random_ingredients()`` function:
+
+.. autofunction:: lumache.get_random_ingredients
+
+
+
+
+The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
+
+or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
+will raise an exception.
+
+.. autoexception:: lumache.InvalidKindError
+
+
+
+>>>from docs.source import lumache
+>>> lumache.get_random_ingredients()
+['shells', 'gorgonzola', 'parsley']
