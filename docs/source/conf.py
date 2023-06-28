@@ -16,8 +16,8 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 project = 'westat'
 copyright = '2023, westat team'
 author = 'westat team'
-release = '0.2.1'
-
+release = '0.2.2'
+version = '0.2.2'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
@@ -26,6 +26,11 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.mathjax',
+    'sphinxcontrib.bibtex',
+    'sphinx.ext.autosectionlabel',
+    'nbsphinx',
 ]
 
 templates_path = ['_templates']
@@ -36,10 +41,20 @@ language = 'zh_CN'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "sphinx_rtd_theme"  # pydata_sphinx_theme press
-html_static_path = ['_static']
+html_theme = "sphinx_rtd_theme"  # pydata_sphinx_theme press,sphinx_rtd_theme
 
-html_favicon = '_images/logo.png'
+html_theme_options = {
+    'logo_only': True
+}
+html_show_sourcelink = False
+html_static_path = ['_static']
+html_logo = '_static/images/logo.png'
+html_favicon = '_static/images/logo.png'
+html_css_files = [
+    'custom.css',
+]
+
+
 
 # EPUB options
 epub_show_urls = 'footnote'
@@ -49,3 +64,6 @@ source_suffix = {
     '.txt': 'restructuredtext',
     '.md': 'markdown',
 }
+
+# ext sphinxcontrib.bibtex options
+bibtex_bibfiles = ['refs.bib']

@@ -12,15 +12,67 @@ westat: 金融统计工具箱
 --------
 
 .. toctree::
-   安装
-   快速入门
-   数据准备
-   数据探索
-   数据处理
-   模型开发
-   模型评估
-   量化分析
-   工具函数
+   :maxdepth: 1
+   :caption: 安装
 
+   installation
 
-查看 :doc:`快速入门` 章节, 尝试:ref:`安装 <安装>` 本程序.
+.. toctree::
+   :maxdepth: 1
+   :caption: 快速开始
+   tutorials/tutorials_version
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 数据准备
+
+   tutorials/tutorials_sample
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 数据探索
+
+   tutorials/tutorials_explore
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 数据处理
+
+   tutorials/tutorials_modify
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模型开发
+
+   tutorials/tutorials_model
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模型评估
+
+   tutorials/tutorials_assess
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 量化分析
+
+   quant/quant
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 工具函数
+
+   utils/utils
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 获取帮助
+
+   help/faq
+   help/how_to_get_support
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 发布日志
+
+   release_notes

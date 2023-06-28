@@ -48,9 +48,6 @@ westat.version
 请查看帮助文档 <a href="https://westat.readthedocs.io" >https://westat.readthedocs.io </a>
 <br>
 
-在westat代码仓库中建立了名为 HereWeGo.ipynb 的帮助文档，你可以在 jupyter-notebook 打开学习。
-
-
 
 <h3> 决策树分箱 </h3>
 <p></p>
