@@ -28,7 +28,6 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
-    'sphinxcontrib.bibtex',
     'sphinx.ext.autosectionlabel',
     'nbsphinx',
 ]
