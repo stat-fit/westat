@@ -1,5 +1,6 @@
 name: westat
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - bzip2=1.0.8=he774522_0

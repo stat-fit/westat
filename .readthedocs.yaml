@@ -15,6 +15,9 @@ build:
     # rust: "1.64"
     # golang: "1.19"
 
+conda:
+  environment: environment.yml
+
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
    configuration: docs/source/conf.py
