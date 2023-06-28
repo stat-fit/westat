@@ -118,6 +118,7 @@ from .utils import (current_path,
 from .quant import get_stock,get_stock_pk,get_stock_m,get_stock_i,get_stock_index
 
 # 设置函数别名
+uci_credit_card = credit_card
 # 数据描述
 data_desc = get_data_describe
 data_describe = get_data_describe
@@ -192,6 +193,7 @@ __all__ = (
 
     # 自带数据集
     'credit_card',
+    'uci_credit_card',
     'GiveMeSomeCredit',
     # 数据获取 sample
     'read_csv',

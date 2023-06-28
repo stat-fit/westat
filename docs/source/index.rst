@@ -20,6 +20,7 @@ westat: 金融统计工具箱
 .. toctree::
    :maxdepth: 1
    :caption: 快速开始
+
    tutorials/tutorials_version
 
 .. toctree::
