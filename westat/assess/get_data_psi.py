@@ -8,7 +8,7 @@ from .get_psi import get_psi
 def get_data_psi(data_actual: pd.DataFrame,
                  data_expected: str,
                  qcut=10,
-                 missing: list = [np.nan, None, 'nan'],
+                 missing: list = [np.nan, None, 'nan','null','NULL'],
                  target='y',
                  precision=6) -> pd.DataFrame:
     """
@@ -36,7 +36,7 @@ def get_data_psi(data_actual: pd.DataFrame,
                          target=target,
                          missing=missing,
                          precision=precision)
-        col_psi.append([col, float(df_psi['Total PSI'].loc[0])])
+        col_psi.append([col, float(df_psi['PSI'].iloc[-1])])
 
     result = pd.DataFrame(col_psi, columns=["Name", "PSI"])
     result.sort_values(by='PSI', ascending=False, inplace=True)

@@ -25,7 +25,7 @@ sphinx:
 #    - epub
 
 conda:
-   environment: environment.yml
+   environment: docs/environment.yml
 
 # Optional but recommended, declare the Python requirements required
 # to build your documentation

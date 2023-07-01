@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "westat"
-version = "0.2.2"
+version = "0.2.4"
 authors = [
   { name = 'westat', email='westat@foxmail.com' },
 ]
@@ -21,6 +21,8 @@ dependencies = [
     "tqdm",
     "seaborn",
     "openpyxl",
+    "optbinning",
+    "ipywidgets",
 ]
 keywords = ["scorecard","woe","iv","roc","ks","auc","psi","lift"]
 classifiers = [
@@ -35,7 +37,7 @@ classifiers = [
 
 [project.urls]
 homepage = 'http://www.pyminer.com'
-documentation = 'https://gitee.com/py2cn/pyminer/wikis'
+documentation = 'https://westat.readthedocs.io'
 repository = 'https://gitee.com/westat/westat'
 
 

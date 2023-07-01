@@ -3,13 +3,13 @@ import pandas as pd
 from tqdm.notebook import tqdm
 
 from .get_data_iv import get_data_iv
-from .get_col_type import get_col_type
+from .get_data_type import get_data_type
 
 
 def get_feature_by_ivcorr(data: pd.DataFrame,
                           data_iv: pd.DataFrame = pd.DataFrame(),
                           min_iv: float = 0.02,
-                          max_corr: float = 0.6,
+                          max_corr: float = 1,
                           keep: list = [],
                           drop: list = [],
                           target: str = 'y',
@@ -43,7 +43,7 @@ def get_feature_by_ivcorr(data: pd.DataFrame,
     data_iv_filter['IV'] = pd.to_numeric(data_iv_filter['IV'])
 
     # 如果列的数据类型不是连续型特征，则赋值为0后计算相关性，否则直接计算相关性
-    col_type = get_col_type(data)
+    col_type = get_data_type(data)
     for col in data_iv_filter['Name']:
         if col_type['Type'][col_type['Name'] == col].iloc[0] != 'continuous':
             df[col] = 0

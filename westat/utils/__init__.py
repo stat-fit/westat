@@ -11,3 +11,4 @@ from .regexp_replace import regexp_replace
 from .regexp_like import regexp_like
 from .to_single_byte import to_single_byte
 from .to_multi_byte import to_multi_byte
+from .set_precision import set_precision

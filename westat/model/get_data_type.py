@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def get_col_type(data: pd.DataFrame) -> pd.DataFrame:
+def get_data_type(data: pd.DataFrame) -> pd.DataFrame:
     """
     划分离散和连续变量 （连续变量：int64,float64，float32；离散变量：其他）
     Args:

@@ -10,7 +10,7 @@ def get_tree_bins(data: pd.DataFrame,
                   max_depth=None,
                   max_leaf_nodes: int = 4,
                   min_samples_leaf: float = 0.05,
-                  missing: list = [np.nan, None, 'nan'],
+                  missing: list = [np.nan, None, 'nan','null','NULL'],
                   precision: int = 2) -> list:
     """
     根据决策树对数据集进行特征分箱，默认最大分为5箱

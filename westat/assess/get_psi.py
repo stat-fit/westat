@@ -8,7 +8,7 @@ def get_psi(data_actual: pd.DataFrame,
             col: str = 'Score',
             bins: list = [],
             qcut=10,
-            missing: list = [np.nan, None, 'nan'],
+            missing: list = [np.nan, None, 'nan','null','NULL'],
             target='y',
             precision=2,
             language='en') -> pd.DataFrame:
@@ -57,14 +57,21 @@ def get_psi(data_actual: pd.DataFrame,
     result['%Expected'] = result['#Expected'] / result['#Expected'].sum()
     result['%Total'] = result['#Total'] / result['#Total'].sum()
     result['PSI'] = (result['%Actual'] - result['%Expected']) * np.log(result['%Actual'] / result['%Expected'])
-    result['Total PSI'] = result['PSI'].fillna(0).sum()
     result['Bins Range'] = result.index
     result.reset_index(drop=True, inplace=True)
-    result['No.'] = result.index
+    result['No.'] = result.index + 1
+    result['Name'] = col
+    result = result[['No.', 'Name', 'Bins Range', '#Total', '#Actual', '#Expected', '%Total', '%Actual', '%Expected', 'PSI']]
+
+    # 添加汇总行
+    total = result.iloc[:, 3:].apply(lambda x: x.sum())
+    row = pd.DataFrame(['','',''] + total.to_list()).T
+    row.columns = result.columns
+
+    result = pd.concat([result, row], ignore_index=True)
 
     # 设置显示格式
-    result['No.'] = result['No.'] + 1
-    result['Name'] = col
+
     result['#Total'] = result['#Total'].apply(lambda x: round(x, precision))
     result['#Actual'] = result['#Actual'].apply(lambda x: round(x, precision))
     result['#Expected'] = result['#Expected'].apply(lambda x: round(x, precision))
@@ -72,23 +79,20 @@ def get_psi(data_actual: pd.DataFrame,
     result['%Actual'] = result['%Actual'].apply(lambda x: format(x, '.' + str(precision) + '%'))
     result['%Expected'] = result['%Expected'].apply(lambda x: format(x, '.' + str(precision) + '%'))
     result['PSI'] = result['PSI'].apply(lambda x: round(x, precision))
-    result['Total PSI'] = result['Total PSI'].apply(lambda x: round(x, precision))
+    result.iat[-1,0] = 'Total'
+    result.iat[-1,1] = ''
+    result.iat[-1,2] = ''
+    result = result[['No.', 'Name', 'Bins Range', '#Total', '#Actual', '#Expected', '%Total', '%Actual', '%Expected', 'PSI']]
 
     # 标题栏语言设置
     if language == 'cn':
-        result = result[
-            ['No.', 'Name', 'Bins Range', '#Total', '#Actual', '#Expected', '%Total', '%Actual', '%Expected', 'PSI',
-             'Total PSI']]
         result.rename(
             columns={'No.': '序号', 'Name': '名称', 'Bins Range': '分组', '#Total': '#合计', '#Actual': '#实际',
-                     '#Expected': '#期望',
-                     '%Total': '%合计', '%Actual': '%实际', '%Expected': '%期望', 'Total PSI': 'PSI 合计'},
+                     '#Expected': '#期望','%Total': '%合计', '%Actual': '%实际', '%Expected': '%期望'},
             inplace=True)
-
-    else:
-        result = result[
-            ['No.', 'Name', 'Bins Range', '#Total', '#Actual', '#Expected', '%Total', '%Actual', '%Expected', 'PSI',
-             'Total PSI']]
+    # 设置显示精度
+    from westat.utils import set_precision
+    set_precision(precision)
 
     return result
 
@@ -98,7 +102,7 @@ def view_psi(data_actual: pd.DataFrame,
              col: str = 'Score',
              bins: list = [],
              qcut=10,
-             missing: list = [np.nan, None, 'nan'],
+             missing: list = [np.nan, None, 'nan','null','NULL'],
              target='y',
              color: str = '#007bff',
              precision=2,

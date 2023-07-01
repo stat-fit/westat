@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_data_check(data: pd.DataFrame,
                       data_dict: pd.DataFrame = pd.DataFrame(),
-                      missing: list = [np.nan, None, 'nan'],
+                      missing: list = [np.nan, None, 'nan','null','NULL'],
                       precision: int = 2,
                       language: str = 'en') -> pd.DataFrame:
     """

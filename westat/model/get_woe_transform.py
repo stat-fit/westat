@@ -8,7 +8,7 @@ def get_woe_transform(data_discrete: pd.DataFrame(),
                       fit_transform=pd.DataFrame(),
                       target='y',
                       method='discrete',
-                      missing: list = [np.nan, None, 'nan'],
+                      missing: list = [np.nan, None, 'nan','null','NULL'],
                       precision=2):
     """
     根据离散化数据集，进行WoE转换
@@ -29,15 +29,17 @@ def get_woe_transform(data_discrete: pd.DataFrame(),
         for col in tqdm([i for i in data_discrete.columns if i != target]):
             col_woe = get_woe_iv(data_discrete, col=col, target=target, method=method, missing=missing,
                                  precision=precision)
-            col_woe['WoE'] = pd.to_numeric(col_woe['WoE'])
-            s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
+            col_woe = col_woe.iloc[:-1, :]
+            woe_content = pd.to_numeric(col_woe['WoE'])
+            s = data_discrete[col].replace(list(col_woe['Bin']), list(woe_content))
             data_woe = pd.concat([data_woe, s], axis=1)
     else:
         for col in tqdm([i for i in data_discrete.columns if i != target]):
             col_woe = get_woe_iv(fit_transform, col=col, target=target, method=method, missing=missing,
                                  precision=precision)
-            col_woe['WoE'] = pd.to_numeric(col_woe['WoE'])
-            s = data_discrete[col].replace(list(col_woe['Bin']), list(col_woe['WoE']))
+            col_woe = col_woe.iloc[:-1, :]
+            woe_content = pd.to_numeric(col_woe['WoE'])
+            s = data_discrete[col].replace(list(col_woe['Bin']), list(woe_content))
             data_woe = pd.concat([data_woe, s], axis=1)
     data_woe[target] = data_discrete[target]
     return data_woe

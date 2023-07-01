@@ -16,8 +16,8 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 project = 'westat'
 copyright = '2023, westat team'
 author = 'westat team'
-release = '0.2.2'
-version = '0.2.2'
+release = '0.2.3'
+version = '0.2.3'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 

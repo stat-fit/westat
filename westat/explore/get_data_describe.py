@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_data_describe(data: pd.DataFrame,
                       data_dict: pd.DataFrame = pd.DataFrame(),
-                      missing: list = [np.nan, None, 'nan'],
+                      missing: list = [np.nan, None, 'nan','null','NULL'],
                       key: list = [],
                       precision: int = 2,
                       language: str = 'en') -> pd.DataFrame:
@@ -37,7 +37,7 @@ def get_data_describe(data: pd.DataFrame,
         # 数据角色
         if col.lower() == 'y' or col.lower() == 'target':
             col_role = 'target'
-        elif col.lower().find('_id') > 0:
+        elif col.lower().find('_id') > 0 or col.lower() == 'id':
             col_role = 'ID'
         else:
             col_role = 'feature'
@@ -106,12 +106,12 @@ def get_data_describe(data: pd.DataFrame,
                 col_top2 = np.nan
                 col_top1 = np.nan
         result.append(
-            [col, '', col_dtype, col_role, col_total, col_n, col_n / col_total, col_missing, col_missing / col_total,
+            [col,  col_dtype, col_role, col_total, col_n, col_n / col_total, col_missing, col_missing / col_total,
              col_unique, col_unique / col_total, col_sum,
              col_min, col_mean, col_q1, col_median, col_q3, col_max, col_range, col_mode, col_var, col_std, col_cv,
              col_sem, col_skew, col_kurt, col_sum_of_squares, col_top1, col_top2, col_top3])
     result = pd.DataFrame(result,
-                          columns=['Name', 'Describe', 'Type', 'Role', '#Count', '#N', '%N', '#Missing', '%Missing',
+                          columns=['Name', 'Type', 'Role', '#Count', '#N', '%N', '#Missing', '%Missing',
                                    '#Unique', '%Unique',
                                    '#Sum', '#Min', '#Mean', '#Q1', '#Median', '#Q3', '#Max', '#Range', '#Mode', '#Var',
                                    '#Std', '#Cv', '#StdMean', '#Skew', '#Kurt', '#Sum_of_squares', 'Top1', 'Top2',
@@ -145,51 +145,46 @@ def get_data_describe(data: pd.DataFrame,
     result.index.name = 'No.'
     result.reset_index(drop=True, inplace=True)
 
-    col_list = ['Name', 'Describe','Type', 'Role', '#Count', '#N', '%N', '#Missing', '%Missing', '#Unique',
+    col_list = ['Type', 'Role', '#Count', '#N', '%N', '#Missing', '%Missing', '#Unique',
                 '%Unique', '#Sum', '#Min', '#Mean', '#Q1', '#Median', '#Q3', '#Max', 'Top1', 'Top2', 'Top3']
+
+    # 如果数据字典非空，则匹配字典值作为变量描述
+    if not data_dict.empty:
+        data_dict.columns=['Name','Describe']
+        result = result.merge(data_dict, on='Name', how='left')
+        result.fillna('',inplace=True)
 
     if language == 'cn':
         if len(key) > 0:
             if not data_dict.empty:
                 result = result[['Name', 'Describe'] + key]
-                result = result.merge(data_dict, on='Name', how='left')
-                result['Describe'][result.iloc[:, -1].notnull()] = result.iloc[:, -1]
-                result = result.iloc[:, :-1]
             else:
                 result = result[['Name'] + key]
         else:
-            result = result[col_list]
             if not data_dict.empty:
-                result = result.merge(data_dict, on='Name', how='left')
-                result['Describe'][result.iloc[:, -1].notnull()] = result.iloc[:, -1]
-                result = result.iloc[:, :-1]
+                result = result[['Name', 'Describe'] + col_list]
             else:
-                result.drop(columns=['Describe'],inplace=True)
+                result = result[['Name'] + col_list]
+
         result.rename(columns={'Name': '名称', 'Describe': '描述', 'Type': '类型', 'Role': '角色', '#Count': '#数量',
                                '#Missing': '#缺失值', '%Missing': '%缺失值', '#Unique': '#唯一值', '%Unique': '%唯一值',
-                               '#Sum': '#合计',
-                               '#Min': '#最小值', '#Mean': '#均值', '#Median': '#中位数', '#Max': '#最大值',
-                               '#Mode': '#众数',
-                               '#Var': '#方差', '#Std': '#标准差',
-                               '#Skew': '#偏度', '#Kurt': '#峰度', '#Q1': '下四分位数', '#Q3': '上四分位数',
-                               '#StdMean': '#标准误差', '#Range': '#极差', '#Cv': '#变异系数',
-                               '#Sum_of_squares': '#平方和'}, inplace=True)
+                               '#Sum': '#合计','#Min': '#最小值', '#Mean': '#均值', '#Median': '#中位数', '#Max': '#最大值',
+                               '#Mode': '#众数','#Var': '#方差', '#Std': '#标准差','#Skew': '#偏度', '#Kurt': '#峰度',
+                               '#Q1': '下四分位数', '#Q3': '上四分位数','#StdMean': '#标准误差', '#Range': '#极差',
+                               '#Cv': '#变异系数','#Sum_of_squares': '#平方和'}, inplace=True)
     else:
         if len(key) > 0:
             if not data_dict.empty:
                 result = result[['Name', 'Describe'] + key]
-                result = result.merge(data_dict, on='Name', how='left')
-                result['Describe'][result.iloc[:, -1].notnull()] = result.iloc[:, -1]
-                result = result.iloc[:, :-1]
             else:
                 result = result[['Name'] + key]
         else:
-            result = result[col_list]
             if not data_dict.empty:
-                result = result.merge(data_dict, on='Name', how='left')
-                result['Describe'][result.iloc[:, -1].notnull()] = result.iloc[:, -1]
-                result = result.iloc[:, :-1]
+                result = result[['Name', 'Describe'] + col_list]
             else:
-                result.drop(columns=['Describe'],inplace=True)
+                result = result[['Name'] + col_list]
+
+    from westat.utils import set_precision
+    set_precision(precision)
 
     return result

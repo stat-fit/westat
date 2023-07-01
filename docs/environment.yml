@@ -5,12 +5,9 @@ channels:
 dependencies:
 
   # documentation
-  - numpy
-  - pandas
-  - matplotlib
-  - seaborn
-  - scikit-learn
-  -
+  - nbsphinx
+  - pandoc
+  - ipykernel
 
   - pip:
       - sphinx-rtd-theme

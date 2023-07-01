@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-from .get_col_type import get_col_type
+from .get_data_type import get_data_type
 from .get_data_discrete import get_data_discrete
 from .get_woe_transform import get_woe_transform
 from .get_model_iv import get_model_iv
@@ -10,12 +10,12 @@ from .get_data_iv import get_data_iv
 
 
 def get_scorecard(data: pd.DataFrame,
-                  col_bins: pd.DataFrame = pd.DataFrame(),
-                  col_dict: pd.DataFrame = pd.DataFrame(),
+                  data_bins: pd.DataFrame = pd.DataFrame(),
+                  data_dict: pd.DataFrame = pd.DataFrame(),
                   init_score: int = 600,
                   pdo: int = 50,
                   target: str = 'y',
-                  style:bool = False,
+                  style: bool = False,
                   return_lr: bool = False,
                   precision: int = 2,
                   language: str = 'en'):
@@ -23,8 +23,8 @@ def get_scorecard(data: pd.DataFrame,
     按照提供的分箱、数据字典，以逻辑回归方法开发评分卡
     Args:
         data:pd.DataFrame,需要开发评分卡的目标数据集
-        col_bins:pd.DataFrame,列的分箱
-        col_dict:pd.DataFrame,列的数据字典
+        data_bins:pd.DataFrame,列的分箱
+        data_dict:pd.DataFrame,列的数据字典
         init_score:初始模型分,默认为600
         pdo: int,坏件率每上升一倍，增加的分数，默认为50,当pdo为负数时，分数越高，风险越高
         target: str,目标变量名称，默认为'y'
@@ -38,10 +38,10 @@ def get_scorecard(data: pd.DataFrame,
     """
 
     # 数据类型
-    col_types = get_col_type(data)
+    data_types = get_data_type(data)
 
     # 数据离散化
-    data_discrete = get_data_discrete(data=data, col_bin=col_bins, target=target)
+    data_discrete = get_data_discrete(data=data, data_bins=data_bins, target=target)
 
     # WoE 转换
     data_woe = get_woe_transform(data_discrete, target=target)
@@ -58,10 +58,10 @@ def get_scorecard(data: pd.DataFrame,
 
     # 评分卡特征准备
     result = get_model_iv(data_discrete=data_discrete,
-                          col_iv=data_iv,
-                          col_bins=col_bins,
-                          col_dict=col_dict,
-                          col_types=col_types,
+                          data_iv=data_iv,
+                          data_bins=data_bins,
+                          data_dict=data_dict,
+                          data_types=data_types,
                           target=target,
                           style=style,
                           precision=precision)
@@ -92,14 +92,14 @@ def get_scorecard(data: pd.DataFrame,
     result['Coef'] = result['Coef'].apply(lambda x: round(x, precision))
     result['Score'] = result['Score'].apply(lambda x: round(x, 0))
     result['Base Score'] = init_score
-    col_list =['No.', 'Name', 'Label', 'Type', 'Bins No.', 'Bin', 'Bins', '#Total', '#Bad',
-               '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV', 'Total IV',
-               'WoE.', 'Style', 'Intercept', 'Coef', 'Base Score', 'Score']
+    col_list = ['No.', 'Name', 'Label', 'Type', 'Bins No.', 'Bin', 'Bins', '#Total', '#Bad',
+                '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV', 'Total IV',
+                'WoE.', 'Style', 'Intercept', 'Coef', 'Base Score', 'Score']
     # 语言设置
     if language == 'cn':
-        if col_dict.empty:
+        if data_dict.empty:
             col_list.remove('Label')
-        if col_bins.empty:
+        if data_bins.empty:
             col_list.remove('Bins')
         # 是否显示样式字段
         if not style:
@@ -114,9 +114,9 @@ def get_scorecard(data: pd.DataFrame,
                      'Intercept': '截距', 'Coef': '系数', 'Base Score': '基础分', 'Score': '分数', 'Style': '样式'},
             inplace=True)
     else:
-        if col_dict.empty:
+        if data_dict.empty:
             col_list.remove('Label')
-        if col_bins.empty:
+        if data_bins.empty:
             col_list.remove('Bins')
         # 是否显示样式字段
         if not style:

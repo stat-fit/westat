@@ -2,7 +2,7 @@
 
 # 版本号
 __title__ = 'westat'
-__version__ = '0.2.2'
+__version__ = '0.2.4'
 __author__ = 'westat <westat@foxmail.com>'
 __license__ = 'GPL, see LICENSE.txt'
 __copyright__ = 'Copyright (c) 2022-2023 statfit'
@@ -23,7 +23,9 @@ plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
 pd.set_option('max_colwidth', 100)  # 设置value的显示长度为100，默认为50
 pd.set_option('display.max_columns', 100)  # 把最大列显示设置成100
 pd.set_option('display.max_rows', 100)  # 把最大行显示设置成30
-pd.set_option('display.float_format', lambda x: '%.2f' % x)  # 默认不显示科学计数法，显示2位小数
+
+
+
 
 version = __version__
 
@@ -49,16 +51,18 @@ from .modify import set_update_bins
 
 # 模型开发 model
 from .model import (get_feature_by_ivcorr,
-                    get_col_type,
+                    get_data_type,
                     get_data_bins,
                     get_data_discrete,
                     get_data_iv,
                     get_data_woe,
                     get_woe_transform,
                     get_model_iv,
+                    view_model_iv,
                     get_predict_score,
                     get_scorecard,
                     get_tree_bins,
+                    get_bins,
                     get_woe_iv,
                     view_woe_iv,
                     stepwise_forward,
@@ -112,7 +116,8 @@ from .utils import (current_path,
                     regexp_replace,
                     regexp_like,
                     to_single_byte,
-                    to_multi_byte, )
+                    to_multi_byte,
+                    set_precision)
 
 # 量化
 from .quant import get_stock,get_stock_pk,get_stock_m,get_stock_i,get_stock_index
@@ -190,6 +195,7 @@ __all__ = (
     'regexp_like',
     'to_single_byte',
     'to_multi_byte',
+    'set_precision',
 
     # 自带数据集
     'credit_card',
@@ -223,17 +229,21 @@ __all__ = (
     'woe_transform',
     'get_tree_bins',
     'tree_bins',
+    'get_bins',
     'get_woe_iv',
     'woe_iv',
     'view_woe_iv',
     # 'dataframe_to_table',
-    'get_col_type',
+    'get_data_type',
     'get_data_bins',
     'set_update_bins',
     'update_bins',
+
+    # 模型开发 model
     'get_model_iv',
     'model_iv',
-    # 模型开发 model
+    'view_model_iv',
+
     'get_scorecard',
     'get_predict_score',
     'plot_woe',
@@ -284,17 +294,4 @@ __all__ = (
 )
 
 
-class Table(pd.DataFrame):
-    def __init__(self):
-        super().__init__()
 
-    def __str__(self):
-        return 'table for westat'
-
-
-class Column(pd.Series):
-    def __init__(self):
-        super().__init__()
-
-    def __str__(self):
-        return 'column for westat'
