@@ -4,7 +4,7 @@ from .utils import current_path
 
 
 # 设置自带数据集
-def credit_card() -> pd.DataFrame():
+def uci_credit_card() -> pd.DataFrame():
     """
     获取自带数据集 uci_credit_card
     Returns:

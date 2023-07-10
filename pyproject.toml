@@ -2,9 +2,26 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+ignore-vcs = true
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/.idea",
+    "/.github",
+    "/.ipynb_checkpoints",
+    "/__pycache__",
+    "/docs",
+    "/dist",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["westat"]
+
+
 [project]
 name = "westat"
-version = "0.2.4"
+version = "0.2.5"
 authors = [
   { name = 'westat', email='westat@foxmail.com' },
 ]
@@ -42,15 +59,3 @@ repository = 'https://gitee.com/westat/westat'
 
 
 
-[tool.hatch.build.targets.sdist]
-exclude = [
-    "/.idea",
-    "/.github",
-    "/.ipynb_checkpoints",
-    "/__pycache__",
-    "/docs",
-    "/dist",
-]
-
-[tool.hatch.build.targets.wheel]
-packages = ["westat"]

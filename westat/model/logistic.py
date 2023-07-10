@@ -13,7 +13,7 @@ def logistic(data, target='y', return_model=False):
     import statsmodels.api as sm
 
     y = data['y']
-    x = data[[col for col in data.column if col != 'y']]
+    x = data[[col for col in data.columns if col != 'y']]
     x = sm.add_constant(x)
 
     lr = sm.Logit(y, x).fit(disp=0)

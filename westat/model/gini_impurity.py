@@ -13,10 +13,10 @@ def gini_impurity(l=None, c=None, precision: int = 2):
     """
 
     if not isinstance(l, pd.Series):
-        l = pd.Series(l)
+        l = pd.Series(l, dtype='float64')
 
     if not isinstance(c, pd.Series):
-        c = pd.Series(c)
+        c = pd.Series(c, dtype='float64')
 
     if len(l) > 0:
         r = l.value_counts()
@@ -29,9 +29,9 @@ def gini_impurity(l=None, c=None, precision: int = 2):
         df['ratio'] = df['count'] / sum(c)
         df.reset_index(drop=True, inplace=True)
 
-    # 数据精度处理
     result = 1 - sum([p ** 2 for p in df['ratio']])
 
+    # 数据精度处理
     result = round(result, precision)
 
     return result

@@ -1,17 +1,39 @@
-name: westat
+name: westat-dev
 channels:
   - conda-forge
   - defaults
 dependencies:
-
-  # documentation
+  - python=3.10
+  - pip
+  # 依赖
   - numpy
   - pandas
   - matplotlib
   - seaborn
   - scikit-learn
-  -
+  - scipy
+  - statsmodels
+  - tqdm
+  - openpyxl
+  - ipywidgets
+  - toml
+
+  # 测试
+  - notebook
+
 
   - pip:
+      # 构建python包
+      - build
+      - twine
+
+      # 开发
+      - optbinning
+      - toml
+
+      # 文档
+      - sphinx
+      - furo
       - sphinx-rtd-theme
       - readthedocs-sphinx-search
+      - myst-parser

@@ -20,5 +20,7 @@ from .gini_impurity import gini_impurity
 from .get_bins import get_bins
 from .finance import debx,debj
 
+from .logistic import logistic
+
 # 决策树
 from .tree import tree_to_img, tree_to_pdf, graphviz, plot_tree

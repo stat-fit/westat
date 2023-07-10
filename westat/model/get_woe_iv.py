@@ -9,7 +9,7 @@ def get_woe_iv(data: pd.DataFrame,
                col: str,
                bins: list = [],
                qcut: int = 0,
-               missing: list = [np.nan, None, 'nan','null','NULL'],
+               missing: list = [np.nan, None, 'nan', 'null', 'NULL'],
                max_bins: int = 5,
                target: str = 'y',
                method: str = 'optb',
@@ -175,11 +175,17 @@ def get_woe_iv(data: pd.DataFrame,
                 if str(bins[i]).replace('missing', '-99999999999') < str(bins[j]).replace('missing', '-99999999999'):
                     bins[i], bins[j] = bins[j], bins[i]
 
-
-
-
     df = pd.DataFrame({'Bin': bins, 'No.': range(len(bins))})
     result = result.merge(df, how='left', on='Bin')
+    result.sort_values(by='No.', inplace=True)
+    result.reset_index(drop=True, inplace=True)
+
+    # 添加 gini
+    from .gini_impurity import gini_impurity
+    gini_list = []
+    for row in result.index:
+        gini_list.append(gini_impurity(c=[result.loc[row, '#Bad'], result.loc[row, '#Good']], precision=4))
+    result['Gini'] = gini_list
 
     # 添加汇总行
     total = result.iloc[:, 1:].apply(lambda x: x.sum())
@@ -199,20 +205,19 @@ def get_woe_iv(data: pd.DataFrame,
     result['IV'] = result['IV'].apply(lambda x: format(x, '.' + str(precision) + 'f'))
 
 
-    result.sort_values(by='No.', inplace=True)
-    result.reset_index(drop=True, inplace=True)
     result = result[
-        ['Name', 'No.', 'Bin', '#Total', '#Bad', '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV']]
-    result.iat[-1,0] = 'Total'
-    result.iat[-1,1] = ''
-    result.iat[-1,2] = ''
-    result.iat[-1,9] = result['#Bad'].sum() / result['#Total'].sum()
+        ['Name', 'No.', 'Bin', '#Total', '#Bad', '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV','Gini']]
+    result.iat[-1, 0] = 'Total'
+    result.iat[-1, 1] = ''
+    result.iat[-1, 2] = ''
+    result.iat[-1, 9] = result['#Bad'].sum() / result['#Total'].sum()
     result['%BadRate'] = result['%BadRate'].apply(lambda x: format(x, '.' + str(precision) + '%'))
 
     if language == 'cn':
         result.rename(
             columns={'Name': '名称', 'No.': '分组序号', 'Bin': '分组逻辑', '#Total': '#合计', '#Bad': '#坏',
-                     '#Good': '#好','%Total': '%合计', '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率'},
+                     '#Good': '#好', '%Total': '%合计', '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率',
+                     'Gini': '基尼不纯度'},
             inplace=True)
 
     # 设置显示精度
@@ -226,7 +231,7 @@ def view_woe_iv(data: pd.DataFrame,
                 col: str,
                 bins: list = [],
                 qcut: int = 0,
-                missing: list = [np.nan, None, 'nan','null','NULL'],
+                missing: list = [np.nan, None, 'nan', 'null', 'NULL'],
                 max_bins: int = 5,
                 target: str = 'y',
                 method: str = 'optb',

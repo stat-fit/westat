@@ -1,11 +1,5 @@
 # -*- coding:utf-8 -*-
 
-# 版本号
-__title__ = 'westat'
-__version__ = '0.2.4'
-__author__ = 'westat <westat@foxmail.com>'
-__license__ = 'GPL, see LICENSE.txt'
-__copyright__ = 'Copyright (c) 2022-2023 statfit'
 
 import sys
 import os
@@ -16,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm.notebook import tqdm
 import warnings
+import toml
 
 plt.rcParams['font.sans-serif'] = 'SimHei'  # 设置中文字体
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
@@ -24,15 +19,20 @@ pd.set_option('max_colwidth', 100)  # 设置value的显示长度为100，默认�
 pd.set_option('display.max_columns', 100)  # 把最大列显示设置成100
 pd.set_option('display.max_rows', 100)  # 把最大行显示设置成30
 
-
-
+pyproject = toml.load('pyproject.toml')
+__title__ = pyproject['project']['authors'][0]['name']
+__version__ = pyproject['project']['version']
+__author__ = pyproject['project']['authors'][0]['email']
+__license__ = pyproject['project']['classifiers'][1]
+__copyright__ = 'Copyright (c) 2022-' + str(datetime.now().year) + ' westat team'
 
 version = __version__
 
 # 导入westat功能模块
-
+# 核心类
+from .core import Table, Column
 # 自带数据集
-from .dataset import credit_card, GiveMeSomeCredit
+from .dataset import uci_credit_card, GiveMeSomeCredit
 
 # 数据准备 sample
 from .sample import read_csv, read_excel, get_data_partition
@@ -43,7 +43,7 @@ from .explore import (check_data_target,
                       get_data_distribution,
                       get_data_check,
                       proc_means,
-                      plot_col,
+                      plot_counts,
                       )
 
 # 数据处理 modify
@@ -77,6 +77,8 @@ from .model import (get_feature_by_ivcorr,
                     gini_impurity,
                     debx,
                     debj,
+
+                    logistic,
                     )
 
 # 模型评估 access
@@ -120,17 +122,14 @@ from .utils import (current_path,
                     set_precision)
 
 # 量化
-from .quant import get_stock,get_stock_pk,get_stock_m,get_stock_i,get_stock_index
+from .quant import get_stock, get_stock_pk, get_stock_m, get_stock_i, get_stock_index
 
-# 设置函数别名
-uci_credit_card = credit_card
 # 数据描述
 data_desc = get_data_describe
 data_describe = get_data_describe
 
 data_dist = get_data_distribution
 value_counts = get_data_distribution
-plot_counts = plot_col
 
 # 数据分区
 data_split = get_data_partition
@@ -171,7 +170,9 @@ __all__ = (
     'version',
     'sin',
     'cos',
-
+    # 核心
+    'Table',
+    'Column',
     # 工具
     'current_path',
     'user_name',
@@ -198,7 +199,6 @@ __all__ = (
     'set_precision',
 
     # 自带数据集
-    'credit_card',
     'uci_credit_card',
     'GiveMeSomeCredit',
     # 数据获取 sample
@@ -212,7 +212,6 @@ __all__ = (
     'get_data_check',
     'check_data',
     'proc_means',
-    'plot_col',
     'plot_counts',
 
     # 数据检查
@@ -243,7 +242,7 @@ __all__ = (
     'get_model_iv',
     'model_iv',
     'view_model_iv',
-
+    'logistic',
     'get_scorecard',
     'get_predict_score',
     'plot_woe',
@@ -292,6 +291,3 @@ __all__ = (
     'get_stock_i',
     'get_stock_index',
 )
-
-
-

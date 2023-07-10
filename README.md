@@ -18,7 +18,7 @@
 用于开发信用评分卡模型的python包，包含特征分箱、特征筛选、WOE和IV计算，KS值和AUC计算、模型提升度LIFT、模型稳定性 PSI 计算、决策树绘制、评分卡制作等功能
 <br>另外，westat包含常用的金融计算函数，例如等额本息、等额本金等还款方式的计算。
 
-westat是开源数据分析处理项目<a href="http://pyminer.com/" >pyminer </a> 的一部分，但是也可以被单独使用。
+westat基于python3.10进行开发，是开源数据分析处理项目<a href="http://pyminer.com/" >pyminer </a> 的一部分，但是也可以被单独使用。
 westat 希望更多朋友能够参与项目，一起维护并提升！
 
 
@@ -34,7 +34,32 @@ westat 希望更多朋友能够参与项目，一起维护并提升！
 pip install westat
 ```
 
-<h3> 四、常见操作 </h3>
+<h3> 四、开发 </h3>
+
+```bash
+# 创建环境
+conda env create -f environment.yml
+# 激活环境
+conda activate westat-dev
+# 构建
+python -m build
+# 上传到 pypi
+python -m twine upload dist/*
+```
+
+<h3> 五、测试 </h3>
+
+```bash
+# 创建环境
+conda env create -f environment.yml
+# 激活环境
+conda activate westat-dev
+# 测试
+jupyter-notebook
+# 在jupyter上打开 HereWeGo.ipynb 进行测试
+```
+
+<h3> 六、常见操作 </h3>
 <h4>查看版本号</h4>
 
 ```bash

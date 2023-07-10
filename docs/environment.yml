@@ -1,4 +1,4 @@
-name: westat
+name: westat-doc
 channels:
   - conda-forge
   - defaults
