@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def plot_col(data: pd.DataFrame,
+def plot_counts(data: pd.DataFrame,
              col: str = 'y',
              missing: list = [np.nan, None, 'nan','null','NULL'],
              color: list = ['#1f77b4', '#ff800b', '#d62728', '#333333'],
