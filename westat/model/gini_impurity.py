@@ -1,6 +1,3 @@
-import pandas as pd
-
-
 def gini_impurity(l=None, c=None, precision: int = 2):
     """
     根据传入的数据列表，计算基尼不纯度
@@ -11,27 +8,27 @@ def gini_impurity(l=None, c=None, precision: int = 2):
     Returns:
         基尼不纯度 gini impurity
     """
+    import pandas as pd
 
     if not isinstance(l, pd.Series):
-        l = pd.Series(l, dtype='float64')
+        s = pd.Series(l, dtype='object')
+    else:
+        s = l
 
     if not isinstance(c, pd.Series):
-        c = pd.Series(c, dtype='float64')
+        c = pd.Series(c, dtype='object')
 
     if len(l) > 0:
-        r = l.value_counts()
-        df = pd.DataFrame(r)
+        df = pd.DataFrame(s.value_counts())
         df.columns = ['count']
         df['ratio'] = df['count'] / len(l)
-        df.reset_index(drop=True, inplace=True)
     else:
         df = pd.DataFrame({'count': c}, index=range(len(c)))
         df['ratio'] = df['count'] / sum(c)
-        df.reset_index(drop=True, inplace=True)
 
-    result = 1 - sum([p ** 2 for p in df['ratio']])
+    gini = 1 - sum([p ** 2 for p in df['ratio']])
 
     # 数据精度处理
-    result = round(result, precision)
+    result = round(gini, precision)
 
     return result

@@ -15,7 +15,7 @@ dependencies:
   - statsmodels
   - tqdm
   - openpyxl
-  - ipywidgets
+  - ipywidgetscon
 
   # 测试
   - notebook

@@ -17,6 +17,7 @@ from .plot_iv import plot_iv
 from .plot_woe import plot_woe
 from .plot_corr import plot_corr
 from .gini_impurity import gini_impurity
+from .get_entropy import get_entropy
 from .get_bins import get_bins
 from .finance import debx,debj
 

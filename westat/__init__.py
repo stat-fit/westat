@@ -19,7 +19,7 @@ pd.set_option('display.max_rows', 100)  # 把最大行显示设置成30
 
 
 __title__ = 'westat'
-__version__ = '0.2.6'
+__version__ = '0.2.7'
 __author__ = 'westat@foxmail.com'
 __license__ = 'GPLv3'
 __copyright__ = 'Copyright (c) 2022-2023 westat team'
@@ -73,6 +73,7 @@ from .model import (get_feature_by_ivcorr,
                     plot_tree,
 
                     gini_impurity,
+                    get_entropy,
                     debx,
                     debj,
 
@@ -257,6 +258,7 @@ __all__ = (
     'tree_to_pdf',
     # 统计指标
     'gini_impurity',
+    'get_entropy',
 
     # 模型评估 access
     'get_score_distribution',
