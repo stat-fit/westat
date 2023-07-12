@@ -16,7 +16,6 @@ dependencies:
   - tqdm
   - openpyxl
   - ipywidgets
-  - toml
 
   # 测试
   - notebook

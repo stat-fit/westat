@@ -1,6 +1,4 @@
 # -*- coding:utf-8 -*-
-
-
 import sys
 import os
 from datetime import datetime
@@ -10,7 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm.notebook import tqdm
 import warnings
-import toml
+
 
 plt.rcParams['font.sans-serif'] = 'SimHei'  # 设置中文字体
 plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
@@ -19,12 +17,12 @@ pd.set_option('max_colwidth', 100)  # 设置value的显示长度为100，默认�
 pd.set_option('display.max_columns', 100)  # 把最大列显示设置成100
 pd.set_option('display.max_rows', 100)  # 把最大行显示设置成30
 
-pyproject = toml.load('pyproject.toml')
-__title__ = pyproject['project']['authors'][0]['name']
-__version__ = pyproject['project']['version']
-__author__ = pyproject['project']['authors'][0]['email']
-__license__ = pyproject['project']['classifiers'][1]
-__copyright__ = 'Copyright (c) 2022-' + str(datetime.now().year) + ' westat team'
+
+__title__ = 'westat'
+__version__ = '0.2.6'
+__author__ = 'westat@foxmail.com'
+__license__ = 'GPLv3'
+__copyright__ = 'Copyright (c) 2022-2023 westat team'
 
 version = __version__
 
