@@ -12,7 +12,6 @@ def plot_woe(data: pd.DataFrame,
              target: str = 'y',
              method: str = 'optb',
              trend: str = 'auto',
-             show_missing: bool = False,
              precision: int = 2,
              language: str = 'en',
              color: list = ['#1F77B4', '#FF800B', '#808080', '#C0504D', '#333333'],
@@ -43,7 +42,6 @@ def plot_woe(data: pd.DataFrame,
             auto_asc_desc：自动增减：
             peak：先增后减
             valley：先减后增
-        show_missing:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
         color:list,条形图颜色名称,默认为['#1F77B4', '#FF800B', '#808080', '#C0504D', '#333333'],
@@ -81,7 +79,6 @@ def plot_woe(data: pd.DataFrame,
                             target=target,
                             method=method,
                             trend=trend,
-                            show_missing=show_missing,
                             precision=precision,
                             language=language)
     result = woe_result.iloc[:-1, :]

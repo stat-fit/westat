@@ -18,7 +18,7 @@ def gini_impurity(l=None, c=None, precision: int = 2):
     if not isinstance(c, pd.Series):
         c = pd.Series(c, dtype='object')
 
-    if len(l) > 0:
+    if l:
         df = pd.DataFrame(s.value_counts())
         df.columns = ['count']
         df['ratio'] = df['count'] / len(l)

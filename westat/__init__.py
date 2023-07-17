@@ -19,7 +19,7 @@ pd.set_option('display.max_rows', 100)  # 把最大行显示设置成30
 
 
 __title__ = 'westat'
-__version__ = '0.2.7'
+__version__ = '0.2.8'
 __author__ = 'westat@foxmail.com'
 __license__ = 'GPLv3'
 __copyright__ = 'Copyright (c) 2022-2023 westat team'
@@ -28,7 +28,7 @@ version = __version__
 
 # 导入westat功能模块
 # 核心类
-from .core import Table, Column
+from .core import Table, Column,Scorecard
 # 自带数据集
 from .dataset import uci_credit_card, GiveMeSomeCredit
 
@@ -74,6 +74,7 @@ from .model import (get_feature_by_ivcorr,
 
                     gini_impurity,
                     get_entropy,
+                    get_chi2,
                     debx,
                     debj,
 
@@ -172,6 +173,7 @@ __all__ = (
     # 核心
     'Table',
     'Column',
+    'Scorecard',
     # 工具
     'current_path',
     'user_name',
@@ -259,6 +261,7 @@ __all__ = (
     # 统计指标
     'gini_impurity',
     'get_entropy',
+    'get_chi2',
 
     # 模型评估 access
     'get_score_distribution',

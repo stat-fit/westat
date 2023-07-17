@@ -14,7 +14,6 @@ def get_woe_iv(data: pd.DataFrame,
                target: str = 'y',
                method: str = 'optb',
                trend: str = 'auto',
-               show_missing: bool = False,
                precision: int = 4,
                language: str = 'en') -> pd.DataFrame:
     """
@@ -37,7 +36,6 @@ def get_woe_iv(data: pd.DataFrame,
             auto_asc_desc：自动增减：
             peak：先增后减
             valley：先减后增
-        show_missing:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
 
@@ -141,11 +139,10 @@ def get_woe_iv(data: pd.DataFrame,
     result = df.groupby(col)[target].agg([('#Bad', lambda target: (target == 1).sum()),
                                           ('#Good', lambda target: (target == 0).sum()),
                                           ('#Total', 'count')]).reset_index()
-
-    if show_missing:
-        if 'missing' not in list(result[col]):
-            df_default = pd.DataFrame({col: 'missing', '#Bad': 0, '#Good': 0, '#Total': 0}, index=range(1))
-            result = pd.concat([result, df_default])
+    # 添加 missing 行
+    if 'missing' not in list(result[col]):
+        df_missing = pd.DataFrame({col: 'missing', '#Bad': 0, '#Good': 0, '#Total': 0}, index=range(1))
+        result = pd.concat([result, df_missing])
 
     result['Name'] = col
     result['%Bad'] = result['#Bad'] / result['#Bad'].sum()
@@ -187,6 +184,18 @@ def get_woe_iv(data: pd.DataFrame,
         gini_list.append(gini_impurity(c=[result.loc[row, '#Bad'], result.loc[row, '#Good']], precision=4))
     result['Gini'] = gini_list
 
+    # 添加 entropy
+    from .get_entropy import get_entropy
+    entropy_list = []
+    for row in result.index:
+        entropy_list.append(get_entropy(c=[result.loc[row, '#Bad'], result.loc[row, '#Good']], precision=4))
+    result['Entropy'] = entropy_list
+
+    # 添加chi2
+    from .get_chi2 import get_chi2
+    chi2_df = result[['#Total', '#Bad', '#Good']][result['#Total'] != 0]
+    result['Chi2'] = get_chi2(chi2_df, precision=4)
+
     # 添加汇总行
     total = result.iloc[:, 1:].apply(lambda x: x.sum())
     row = pd.DataFrame([''] + total.to_list()).T
@@ -204,20 +213,21 @@ def get_woe_iv(data: pd.DataFrame,
     result['WoE'] = result['WoE'].apply(lambda x: format(x, '.' + str(precision) + 'f'))
     result['IV'] = result['IV'].apply(lambda x: format(x, '.' + str(precision) + 'f'))
 
-
     result = result[
-        ['Name', 'No.', 'Bin', '#Total', '#Bad', '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV','Gini']]
+        ['Name', 'No.', 'Bin', '#Total', '#Bad', '#Good', '%Total', '%Bad', '%Good', '%BadRate', 'WoE', 'IV', 'Gini',
+         'Entropy', 'Chi2']]
     result.iat[-1, 0] = 'Total'
     result.iat[-1, 1] = ''
     result.iat[-1, 2] = ''
     result.iat[-1, 9] = result['#Bad'].sum() / result['#Total'].sum()
+    result.iat[-1, -1] = result.iat[-2, -1]
     result['%BadRate'] = result['%BadRate'].apply(lambda x: format(x, '.' + str(precision) + '%'))
 
     if language == 'cn':
         result.rename(
             columns={'Name': '名称', 'No.': '分组序号', 'Bin': '分组逻辑', '#Total': '#合计', '#Bad': '#坏',
                      '#Good': '#好', '%Total': '%合计', '%Bad': '%坏', '%Good': '%好', '%BadRate': '%坏件率',
-                     'Gini': '基尼不纯度'},
+                     'Gini': '基尼不纯度', 'Entropy': '熵', 'Chi2': '卡方'},
             inplace=True)
 
     # 设置显示精度
@@ -236,7 +246,6 @@ def view_woe_iv(data: pd.DataFrame,
                 target: str = 'y',
                 method: str = 'optb',
                 trend: str = 'auto',
-                show_missing: bool = False,
                 precision: int = 4,
                 language: str = 'en',
                 color: str = '#007bff'):
@@ -260,7 +269,6 @@ def view_woe_iv(data: pd.DataFrame,
             auto_asc_desc：自动增减：
             peak：先增后减
             valley：先减后增
-        show_missing:bool,是否显示缺失值分组，默认为False
         precision:数据精度，小数点位数，默认为2
         language: str,数据结果标题列显示语言，默认为 'en',可手动修改为'cn'
         color:str,显示颜色，默认为'#007bff' 蓝色
@@ -277,7 +285,6 @@ def view_woe_iv(data: pd.DataFrame,
                         target=target,
                         method=method,
                         trend=trend,
-                        show_missing=show_missing,
                         precision=precision,
                         language=language)
     result['WoE.'] = result['WoE'].replace('', np.nan)

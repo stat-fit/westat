@@ -44,7 +44,6 @@ def get_model_iv(data_discrete: pd.DataFrame,
                                 method='discrete',
                                 target=target,
                                 max_bins=max_bins,
-                                show_missing=True,
                                 precision=precision)
             df_woe = df_woe.iloc[:-1, :]
             df_woe['New WoE'] = pd.to_numeric(df_woe['WoE'])

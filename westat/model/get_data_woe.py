@@ -52,7 +52,6 @@ def get_data_woe(data: pd.DataFrame,
                                 missing=missing,
                                 max_bins=max_bins,
                                 trend=trend,
-                                show_missing=True,
                                 precision=precision)
         col_woe_iv['WoE'] = pd.to_numeric(col_woe_iv['WoE'])
         col_iv.append([col, col_woe_iv['WoE'].iloc[-1]])

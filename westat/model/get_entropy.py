@@ -20,7 +20,7 @@ def get_entropy(l=None, c=None, precision: int = 4):
     if not isinstance(c, pd.Series):
         c = pd.Series(c, dtype='object')
 
-    if len(l) > 0:
+    if l:
         df = pd.DataFrame(s.value_counts())
         df.columns = ['count']
         df['ratio'] = df['count'] / len(l)
@@ -28,7 +28,7 @@ def get_entropy(l=None, c=None, precision: int = 4):
         df = pd.DataFrame({'count': c}, index=range(len(c)))
         df['ratio'] = df['count'] / sum(c)
 
-    entropy = sum(- proba * math.log2(proba) for proba in df['ratio'])
+    entropy = sum(- proba * math.log2(proba) for proba in df['ratio'] if proba != 0)
 
     # 数据精度处理
     result = round(entropy, precision)
